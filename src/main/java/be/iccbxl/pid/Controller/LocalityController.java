@@ -1,4 +1,4 @@
-package be.iccbxl.pid.Service;
+package be.iccbxl.pid.Controller;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import be.iccbxl.pid.Model.Locality;
+import be.iccbxl.pid.Service.LocalityService;
 
 @Controller
 public class LocalityController {
