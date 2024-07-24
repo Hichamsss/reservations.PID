@@ -10,7 +10,7 @@
 	        <h1 th:text="${show.title}">Ayiti</h1>
 
 	        <p th:if="${show.posterUrl}">
-		<img th:src="@{'/images/'+${show.posterUrl}}" th:alt="${show.title}" src="/images/default.jpg" alt="" width="200">
+		<img th:src="@{'/images/'+${show.posterUrl}}" th:alt="${show.title}" src="/images/default.jpg" alt="" width="300">
 	        </p>
 	        <canvas th:unless="${show.posterUrl}" width="200" height="100" style="border:1px solid #000000;"></canvas>
         
