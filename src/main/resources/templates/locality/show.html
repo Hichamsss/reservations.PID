@@ -14,7 +14,7 @@
     			 th:text="${location.designation}">Dexia Art center</li>
    	        </ul>
 
-   	        <p th:if="${#lists.isEmpty(locality.locations)}">Aucun lieu de spectacle.</p>
+   	        <p th:if="${#lists.isEmpty(locality.locations)}">Aucun spectacle ne se tiendra dans ce lieu.</p>
         
 	        <nav><a th:href="@{/localities}">Retour à l'index</a></nav>
 	     </div>
