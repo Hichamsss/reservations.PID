@@ -7,7 +7,7 @@
 <body>
 	<div class="container">
 	     <div layout:fragment="content">
-	        <h1 th:text="${title}">Liste des types</h1>
+	        <h1 th:text="${title}">Les différents types d'artistes</h1>
 	
 	        <ul th:unless="${#lists.isEmpty(types)}">
                 	<li th:each="type : ${types}">

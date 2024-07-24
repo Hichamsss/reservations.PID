@@ -5,22 +5,36 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor (force = true, access = AccessLevel.PROTECTED)
 @Entity
 @Table(name="types")
 public class Type {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	public Long id;
-	public String type;
+	private Long id;
+	private String type;
 	
+	protected Type() { }
+	
+	public Type(String type) {
+		this.type = type;
+	}
+	
+	public Long getId() {
+		return id;
+	}
 
+	public String getType() {
+		return type;
+	}
 	
+	public void setType(String type) {
+		this.type = type;
+	}
 	
-	
+	@Override
+	public String toString() {
+		return "Type [id=" + id + ", type=" + type + "]";
+	}
 }
+

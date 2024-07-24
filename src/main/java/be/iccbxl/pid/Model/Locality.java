@@ -5,19 +5,47 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
+
 @Entity
-@Table(name ="localities")
+@Table(name="localities")
 public class Locality {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	public Long id;
+	private Long id;
 	private String postalCode;
-	public String locality;
+	private String locality;
 	
+	protected Locality() {	}
 
+	public Locality(String postalCode, String locality) {
+		this.postalCode = postalCode;
+		this.locality = locality;
+	}
+
+	public Long getId() {
+		return id;
+	}
+	
+	public String getPostalCode() {
+		return postalCode;
+	}
+	
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
+	
+	public String getLocality() {
+		return locality;
+	}
+	
+	public void setLocality(String locality) {
+		this.locality = locality;
+	}
+	
+	@Override
+	public String toString() {
+		return "Locality [id=" + id + ", postalCode=" + postalCode + ", locality=" + locality + "]";
+	}
+	
 }

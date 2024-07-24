@@ -22,14 +22,14 @@ public class TypeController {
 		List<Type> types = service.getAll();
 
 		model.addAttribute("types", types);
-		model.addAttribute("title", "Liste des types");
+		model.addAttribute("title", "Les différents types d'artistes");
 		
         return "type/index";
     }
 	
 	@GetMapping("/types/{id}")
     public String show(Model model, @PathVariable("id") String id) {
-		Type type = service.get(id);
+		Type type = service.getType(id);
 
 		model.addAttribute("type", type);
 		model.addAttribute("title", "Fiche d'un type");
@@ -38,4 +38,3 @@ public class TypeController {
     }
 
 }
-
