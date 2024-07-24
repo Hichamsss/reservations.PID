@@ -1,12 +1,22 @@
 package be.iccbxl.pid.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-
+@Data
+@NoArgsConstructor(force = true, access = AccessLevel.PROTECTED)
 @Entity
 @Table(name="roles")
 public class Role {
@@ -15,28 +25,35 @@ public class Role {
 	private Long id;
 	private String role;
 	
-	protected Role() {	}
+	@ManyToMany
+	@JoinTable( 
+			name = "user_role", 
+			  joinColumns = @JoinColumn(name = "role_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "user_id"))
+		private List<User> users = new ArrayList<>();
+
+
 	
-	public Role(String role) {
-		super();
-		this.role = role;
+	public List<User> getUsers() {
+		return users;
 	}
 
-	public Long getId() {
-		return id;
+	public Role addUser(User user) {
+		if(!this.users.contains(user)) {
+			this.users.add(user);
+			user.addRole(this);
+		}
+		
+		return this;
 	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
-	@Override
-	public String toString() {
-		return "Role [id=" + id + ", role=" + role + "]";
+	
+	public Role removeUser(User user) {
+		if(this.users.contains(user)) {
+			this.users.remove(user);
+			user.getRoles().remove(this);
+		}
+		
+		return this;
 	}
 	
 }
