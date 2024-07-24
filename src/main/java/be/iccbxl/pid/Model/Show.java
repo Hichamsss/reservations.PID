@@ -12,10 +12,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor(force = true , access = AccessLevel.PROTECTED )
 @Entity
 @Table(name="shows")
 public class Show {
@@ -56,8 +62,10 @@ public class Show {
 	
 	@OneToMany(targetEntity=Representation.class, mappedBy="show")
 	private List<Representation> representations = new ArrayList<>();
+	
+	@ManyToMany(mappedBy = "shows")
+	private List<ArtistType> artistTypes = new ArrayList<>();
 
-	public Show() { }
 	
 	public Show(String title, String description, String posterUrl, Location location, boolean bookable,
 			double price) {
@@ -176,6 +184,25 @@ public class Show {
 		
 		return this;
 	}
+	
+	public Show addArtistType(ArtistType artistType) {
+		if(!this.artistTypes.contains(artistType)) {
+			this.artistTypes.add(artistType);
+			artistType.addShow(this);
+		}
+		
+		return this;
+	}
+	
+	public Show removeArtistType(ArtistType artistType) {
+		if(this.artistTypes.contains(artistType)) {
+			this.artistTypes.remove(artistType);
+			artistType.getShows().remove(this);
+		}
+		
+		return this;
+	}
+
 
 	@Override
 	public String toString() {
