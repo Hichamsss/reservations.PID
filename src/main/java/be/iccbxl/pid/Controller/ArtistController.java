@@ -34,8 +34,8 @@ public class ArtistController {
     }
 	
 	//On rajoute la méthode show pour recuperer l'artiste avec son id et l'afficher dans le template show.html 
-		@GetMapping("/artists/{id}") // Explication p18
-	    public String show(Model model, @PathVariable("id") String id) {
+	@GetMapping("/artists/{id}") // Explication p18
+	public String show(Model model, @PathVariable("id") String id) {
 		Artist artist = service.getArtist(id);
 
 		model.addAttribute("artist", artist);
