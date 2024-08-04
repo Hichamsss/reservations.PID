@@ -10,7 +10,7 @@
 	        <h1 th:text="${title}">Liste de artistes</h1>
 	        
 	        <div class="actions">
-				<a th:href="@{/artists/create}">Add new artist</a>
+				<a th:href="@{/artists/create}">Ajouter un nouvel artiste</a>
 	        </div>
 	        
 	        <table th:unless="${#lists.isEmpty(artists)}">

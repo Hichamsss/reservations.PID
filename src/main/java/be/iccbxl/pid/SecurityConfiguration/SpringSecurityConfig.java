@@ -14,20 +14,18 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity // configure elements de securité
+@EnableWebSecurity
 public class SpringSecurityConfig {
-	 
-	//Permet de générer un formulaire de connexion par défaut
+	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		return http.authorizeHttpRequests(auth -> {
-			auth.requestMatchers("/admin").hasRole("ADMIN"); // Permet de faire matcher une url à un role associé
+			auth.requestMatchers("/admin").hasRole("ADMIN");
 			auth.requestMatchers("/user").hasRole("USER");
 			auth.anyRequest().authenticated();
 		}).formLogin(Customizer.withDefaults()).build();
 	}
 	
-	//Methode qui permet de gérer des utilisateurs
 	@Bean
 	public UserDetailsService users() {
 		UserDetails user = User.builder()
@@ -37,7 +35,7 @@ public class SpringSecurityConfig {
 		UserDetails admin = User.builder()
 				.username("admin")
 				.password(passwordEncoder().encode("Iccbxl123"))
-				.roles("USER","ADMIN").build();
+				.roles("USER", "ADMIN").build();
 		return new InMemoryUserDetailsManager(user, admin);
 	}
 	
@@ -45,4 +43,6 @@ public class SpringSecurityConfig {
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
+
 }

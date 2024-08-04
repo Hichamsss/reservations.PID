@@ -34,7 +34,7 @@ public String show(Model model, @PathVariable("id") String id) {
 		model.addAttribute("title", "Fiche d'une representation");
 		
         	return "representation/show";
-}
+	}
 
 }
 
