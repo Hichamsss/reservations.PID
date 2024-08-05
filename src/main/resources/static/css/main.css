@@ -36,17 +36,6 @@ body {
   color: red;
 }
 
-/* Styles de boutons */
-button {
-  color: black; /* Couleur du texte blanc */
-  padding: 10px 20px; /* Ajouter du padding */
-  font-size: 16px; /* Taille de la police */
-  cursor: pointer; /* Changer le curseur en pointeur */
-}
-
-button:hover {
-  background-color: #2980b9; /* Couleur de fond légèrement plus foncée au survol */
-}
 
 /* Styles de liens */
 a {

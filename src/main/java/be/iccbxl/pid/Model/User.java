@@ -1,148 +1,109 @@
 package be.iccbxl.pid.Model;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
-import lombok.Data;
-
 @Data
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name="users")
 public class User {
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
-	private String login;
-	private String password;
-	private String firstname;
-	private String lastname;
-	private String email;
-	private String langue;
-	private LocalDateTime created_at;
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column(unique = true)
+    @NotBlank(message = "Le login ne peut être vide")
+    private String login;
+
+    @NotBlank(message = "Le mot de passe ne peut être vide")
+    @Size(min = 6, message = "Le mot de passe doit contenir au moins 6 caractères")
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).*$", message = "Le mot de passe doit contenir un caractère spécial et une majuscule minimum")
+    private String password;
+
+
+    private String firstname;
+    private String lastname;
+
+    @Column(unique = true)
+    @NotBlank(message = "L'email ne peut être vide")
+    @Email(message = "L'email doit être valide")
+    private String email;
+
+    private String langue;
+    private LocalDateTime created_at;
+
+    
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "users")
+    private List<Representation> representations = new ArrayList<>();
+
 	
-	@ManyToMany(mappedBy = "users")
-	private List<Role> roles = new ArrayList<>();
+    public User(String login, String password, String firstname, String lastname, String email, String langue) {
+        this.login = login;
+        this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.langue = langue;
+        this.created_at = LocalDateTime.now();
+        this.roles = new ArrayList<>();
+    }
 
-	@ManyToMany(mappedBy = "users")
-	private List<Representation> representations = new ArrayList<>();
-	
-	protected User() {}
+    public User addRole(Role role) {
+        if(!this.roles.contains(role)) {
+            this.roles.add(role);
+            role.getUsers().add(this);
+        }
 
-	public User(String login, String firstname, String lastname) {
-		this.login = login;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.created_at = LocalDateTime.now();
-	}
+        return this;
+    }
 
-	public Long getId() {
-		return id;
-	}	
-	
-	public String getLogin() {
-		return login;
-	}
+    public User removeRole(Role role) {
+        if(this.roles.contains(role)) {
+            this.roles.remove(role);
+            role.getUsers().remove(this);
+        }
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
+        return this;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public User addRepresentation(Representation representation) {
+        if(!this.representations.contains(representation)) {
+            this.representations.add(representation);
+            representation.addUser(this);
+        }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+        return this;
+    }
 
-	public String getFirstname() {
-		return firstname;
-	}
+    public User removeRepresentation(Representation representation) {
+        if(this.representations.contains(representation)) {
+            this.representations.remove(representation);
+            representation.getUsers().remove(this);
+        }
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
+        return this;
+    }
 
-	public String getLastname() {
-		return lastname;
-	}
+    public static User createInstance() {
+    	return new User();
+    }
+    
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	public String getLangue() {
-		return langue;
-	}
-
-	public void setLangue(String langue) {
-		this.langue = langue;
-	}
-
-	public List<Role> getRoles() {
-		return roles;
-	}
-
-	public List<Representation> getRepresentations() {
-		return representations;
-	}
-
-	public LocalDateTime getCreated_at() {
-		return created_at;
-	}
-	
-	public User addRole(Role role) {
-		if(!this.roles.contains(role)) {
-			this.roles.add(role);
-			role.addUser(this);
-		}
-		
-		return this;
-	}
-	
-	public User removeRole(Role role) {
-		if(this.roles.contains(role)) {
-			this.roles.remove(role);
-			role.getUsers().remove(this);
-		}
-		
-		return this;
-	}
-	
-	public User addRepresentation(Representation representation) {
-		if(!this.representations.contains(representation)) {
-			this.representations.add(representation);
-			representation.addUser(this);
-		}
-		
-		return this;
-	}
-	
-	public User removeRepresentation(Representation representation) {
-		if(this.representations.contains(representation)) {
-			this.representations.remove(representation);
-			representation.getUsers().remove(this);
-		}
-		
-		return this;
-	}
-
-	@Override
-	public String toString() {
-		return login + "(" + firstname + " " + lastname + ")";
-	}
 }

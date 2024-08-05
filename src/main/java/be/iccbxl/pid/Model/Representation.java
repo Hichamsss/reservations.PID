@@ -14,6 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -24,8 +25,9 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name="representations")
 public class Representation {
+	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 
 	@ManyToOne
@@ -52,9 +54,8 @@ public class Representation {
 	private List<User> users = new ArrayList<>();
 
 	
-	public List<User> getUsers() {
-		return users;
-	}
+	@OneToMany(mappedBy = "representation")
+    private List<Reservation> reservations = new ArrayList<>();
 
 	public Representation addUser(User user) {
 		if(!this.users.contains(user)) {
