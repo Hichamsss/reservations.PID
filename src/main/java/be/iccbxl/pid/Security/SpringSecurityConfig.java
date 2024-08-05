@@ -1,4 +1,4 @@
-package be.iccbxl.pid.SecurityConfiguration;
+package be.iccbxl.pid.Security;
 
 
 import org.springframework.context.annotation.Bean;

@@ -12,11 +12,11 @@ import be.iccbxl.pid.Service.RepresentationService;
 @Controller
 public class RepresentationController {
 	@Autowired
-	RepresentationService service;
+	RepresentationService representationservice;
 
 	@GetMapping("/representations")
 public String index(Model model) {
-		List<Representation> representations = service.getAll();
+		List<Representation> representations = representationservice.getAll();
 
 		model.addAttribute("representations", representations);
 		model.addAttribute("title", "Liste des representations");
@@ -25,8 +25,8 @@ public String index(Model model) {
 }
 	
 	@GetMapping("/representations/{id}")
-public String show(Model model, @PathVariable("id") String id) {
-		Representation representation = service.get(id);
+public String show(Model model, @PathVariable("id") long id) {
+		Representation representation = representationservice.get(id);
 
 		model.addAttribute("representation", representation);
 		model.addAttribute("date", representation.getWhen().toLocalDate());

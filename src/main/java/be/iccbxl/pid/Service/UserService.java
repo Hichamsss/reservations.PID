@@ -20,10 +20,9 @@ public class UserService {
 		return users;
 	}
 	
-	public User getUser(String id) {
-		int indice = Integer.parseInt(id);
+	public User getUser(long id) {
 		
-		return repository.findById(indice);
+		return repository.findById(id);
 	}
 
 	public void addUser(User user) {
