@@ -42,15 +42,18 @@
 
         .section-subtitle {
             font-size: 1.2rem;
-            margin-bottom: 2rem;
+            margin-bottom: 2rem;#fff
         }
 
         .card-img-top {
-            border-radius: 10px;
+            border-radius: 100px;
+            width: 80%; /* Assurez-vous que toutes les images prennent 100% de la largeur de leur conteneur */
+   			height: 80%; /* Maintenir le ratio d'aspect */
+    		object-fit: cover; /* Assurez-vous que l'image couvre entièrement le conteneur */
         }
 
         .card-body {
-            background-color: #fff;
+            background-color: navy;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             padding: 2rem;
@@ -92,21 +95,21 @@
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="/images/pqfctpas.jpg" class="d-block w-100" alt="Pièce de Théâtre 1">
+                        <img src="/images/pqfctpas.jpg" width="1200" class="d-block w-100" alt="Pièce de Théâtre 1">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>Découvrez nos meilleures pièces de théâtre</h5>
                             <p>Réservez vos places maintenant et profitez des meilleures places disponibles.</p>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="/images/ballon.jpg" class="d-block w-100" alt="Pièce de Théâtre 2">
+                        <img src="/images/ballon.jpg" width="1200" class="d-block w-100" alt="Pièce de Théâtre 2">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>La magie de la scène</h5>
                             <p>Une expérience théâtrale inoubliable vous attend.</p>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="/images/danton.jpg" class="d-block w-100" alt="Pièce de Théâtre 3">
+                        <img src="/images/danton.jpg" width="1200" class="d-block w-100" alt="Pièce de Théâtre 3">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>Bienvenue à Paris, la ville lumière</h5>
                             <p>Assistez aux spectacles dans les plus beaux théâtres parisiens.</p>
@@ -135,7 +138,7 @@
             <div class="row mb-5">
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="/images/nouveaute1.jpeg" class="card-img-top" alt="Nouveauté 1">
+                        <img src="/images/nouveaute1.jpg" class="card-img-top" alt="Nouveauté 1">
                         <div class="card-body">
                             <h5 class="card-title" th:text="#{home3.message}">Nouvelle Pièce 1</h5>
                             <p class="card-text" th:text="#{home4.message}">Une intrigue passionnante qui vous tiendra en haleine.</p>
@@ -173,20 +176,21 @@
 
             <!-- À l'affiche -->
             <div class="row mb-5">
-                <div class="col-md-4 col-sm-6 mb-4" th:each="show : ${shows}">
-                    <a th:href="@{'/show/' + ${show.id}}" class="text-center">
-                        <div class="card h-100">
-                            <img th:src="@{'/images/' + ${show.posterUrl}}" class="card-img-top mx-auto d-block"
-                                style="width: 1200; height: 300px; object-fit: cover;" alt="Affiche">
-                            <div class="card-body">
-                                <h5 class="card-title" th:text="${show.title}">Titre de la pièce</h5>
-                                <p class="card-text" th:text="${show.description}">Description courte de la pièce.</p>
-                                <a th:href="@{'/show/' + ${show.id}}" class="btn btn-primary-custom">Réserver</a>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
+		    <div class="col-md-4 col-sm-6 mb-4" th:each="show : ${shows}">
+		        <a th:href="@{'/shows/' + ${show.id}}" class="text-center">
+		            <div class="card h-100">
+		                <img th:src="@{'/images/' + ${show.posterUrl}}" class="card-img-top mx-auto d-block"
+		                    style="width: 50%; height: 30%; object-fit: cover;" alt="Affiche">
+		                <div class="card-body">
+		                    <h5 class="card-title" th:text="${show.title}">Titre de la pièce</h5>
+		                    <p class="card-text" th:text="${show.description}">Description courte de la pièce.</p>
+		                    <a th:href="@{'/shows/' + ${show.id}}" class="btn btn-primary-custom">Réserver</a>
+		                </div>
+		            </div>
+		        </a>
+		    </div>
+		</div>
+
 
         </div>
     </div>
@@ -196,11 +200,7 @@
         <p>&copy; 2024 Réservation Théâtre. Tous droits réservés.</p>
         <p><a href="#" class="text-white">Mentions légales</a> | <a href="#" class="text-white">Politique de confidentialité</a></p>
     </footer>
-
-    <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+    
 </body>
 
 </html>
