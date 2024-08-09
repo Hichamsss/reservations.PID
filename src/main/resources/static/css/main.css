@@ -1,0 +1,50 @@
+/*Main*/
+
+
+body {
+    background:linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('/images/nv.jpg'); /*Image de fond */
+    background-size: cover; /*Ajuste l'image de fond*/
+    background-repeat: no-repeat; /*Pas de rep de l'image de fond*/
+    background-position: center;
+    color: Ivory;
+    background-attachment: fixed; /*L'image de fond reste en place malgré qu'on défile*/
+    
+}
+
+
+
+
+
+/*header*/
+.navbar {
+    background: rgba(255, 255, 255, 0.3); /* Fond semi-transparent */
+}
+
+
+.imgShow{
+	 width: 100%; /* Définit la largeur de l'image à 100% de la largeur du conteneur */
+    height: 400px; /* Permet de maintenir les proportions de l'image */
+}
+
+
+
+
+/*Ajout test*/
+
+/* Styles de formulaire */
+.fieldError {
+  color: red;
+}
+
+
+/* Styles de liens */
+a {
+  color: SkyBlue;  /*Couleur des liens */
+  text-decoration: none; /* Enlever le soulignement */
+  padding: 10px 20px; /* Ajouter du padding */
+  font-size: 18px; /* Taille de la police */
+}
+
+a:hover {
+  text-decoration: underline; /* Ajouter un soulignement au survol */
+}
