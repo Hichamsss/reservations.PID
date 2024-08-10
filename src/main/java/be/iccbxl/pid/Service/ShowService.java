@@ -1,6 +1,7 @@
 package be.iccbxl.pid.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,4 +48,12 @@ public class ShowService {
 	public List<Show> getFromLocation(Location location) {
 		return repository.findByLocation(location);
 	}
+	public List<Show> getAllShowsSortedByTitle() {
+        List<Show> shows = getAll();
+
+        shows.sort(Comparator.comparing(Show::getTitle));
+
+        return shows;
+    }
 }
+

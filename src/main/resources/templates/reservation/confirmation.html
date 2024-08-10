@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" layout:decorate="~{layouts/main}">
+
+<head>
+	<title>Confirmation</title>
+</head>
+
+<body>
+
+	<div layout:fragment="content">
+		<div class="container">
+			<div class="row mt-5">
+				<div class="col-md-6 offset-md-3 text-center mb-5" style="border: 5px solid black;">
+					<h2 th:text="#{ConfirmTitre.message}" class="text-center m-1">Confirmation de réservation</h2>
+
+					<div th:if="${representation != null}" class="text-center">
+
+						<!-- Utilisation d'une expression Thymeleaf pour l'image -->
+						<img th:src="@{'/images/' + ${representation.show.posterUrl}}" alt="Poster du spectacle"
+							class="img-fluid" width="150" />
+
+						<!-- Calculer le total sans accéder directement à la propriété 'price' -->
+
+					</div>
+					<div>
+					<strong th:text="#{ConfirmDate.message}">Vous avez choisi une représentation le </strong>
+					<span th:text="${#temporals.format(representation.when, 'd MMMM yyyy à HH:mm')}"></span>
+					<p><strong th:text="#{ConfirmTitreShow.message}">Titre du spectacle :</strong> <span th:text="${representation.show.title}"></span></p>
+
+					<div th:if="${username != null}">
+						<p><strong th:text="#{ConfirmUser.message}">Utilisateur :</strong> <span th:text="${username}"></span></p>
+					</div>
+					<div th:if="${username != null}">
+						<p><strong th:text="#{ConfirmPlaces.message}">Nombre de places :</strong> <span th:text="${nbPlaces}"></span></p>
+					</div>
+					<p class="text-start">
+						<strong th:text="#{ConfirmTotal.message}">Total à payer</strong><br> <span
+							th:utext="${#numbers.formatDecimal(representation.show.price * nbPlaces, representation.show.price * nbPlaces >= 10 ? 2 : 1, 'COMMA', 2, 'POINT')}"></span>
+						€
+					</p>
+
+					<form th:action="@{/checkout}" th:method="POST">
+						<button th:text="#{ConfirmPaiement.message}" type="submit" class="btn btn-primary">Procéder au paiement</button>
+					</form>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>
