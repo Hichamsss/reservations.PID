@@ -120,6 +120,12 @@
     <div layout:fragment="content">
         <div class="container mt-5">
 
+            <!-- Section avec le message -->
+            <div class="text-center mb-5">
+                <h2 class="section-title text-primary-custom" th:text="#{home.message}">Nos nouveautés</h2>
+                <p class="section-subtitle" th:text="#{home2.message}">Découvrez les dernières pièces de théâtre ajoutées à notre programme.</p>
+            </div>
+
             <!-- Carousel -->
             <div id="carouselExampleIndicators" class="carousel slide mb-5" data-bs-ride="carousel">
                 <div class="carousel-indicators">
@@ -167,8 +173,8 @@
 
             <!-- Section "Nos nouveautés" -->
             <div class="text-center mb-5">
-                <h2 class="section-title text-primary-custom" th:text="#{home.message}">Nos nouveautés</h2>
-                <p class="section-subtitle" th:text="#{home2.message}">Découvrez les dernières pièces de théâtre ajoutées à notre programme.</p>
+                <h2 class="section-title text-primary-custom" th:text="#{home3.message}">Nos nouveautés</h2>
+                <p class="section-subtitle" th:text="#{home6.message}">Découvrez les dernières pièces de théâtre ajoutées à notre programme.</p>
             </div>
 
             <!-- Nouveautés -->
@@ -177,11 +183,12 @@
                     <div class="card">
                         <img src="/images/nouveaute1.jpg" class="card-img-top" alt="Nouveauté 1">
                         <div class="card-body">
-                            <h5 class="card-title">Nouvelle Pièce 1</h5>
+                            <h5 class="card-title">Roméo & Juliette</h5>
                             <p class="card-text">Une intrigue passionnante qui vous tiendra en haleine.</p>
                             <a href="#" class="btn btn-primary-custom" onclick="toggleInfo(event, this)">En savoir plus</a>
                             <div class="info-bubble">
-                                <p>Plus d'informations sur la Nouvelle Pièce 1 : C'est un drame époustouflant avec une intrigue captivante qui explore les complexités de la condition humaine.</p>
+                                <p>Histoire d'amour interdite entre deux jeunes amants issus de familles rivales à Vérone.
+                                Leur passion dévorante les pousse à défier les normes, mais leur destin tragique est scellé par un enchaînement de malentendus et de conflits.</p>
                             </div>
                         </div>
                     </div>
@@ -191,11 +198,12 @@
                     <div class="card">
                         <img src="/images/nouveaute2.jpg" class="card-img-top" alt="Nouveauté 2">
                         <div class="card-body">
-                            <h5 class="card-title" th:text="#{home3.message}">Nouvelle Pièce 2</h5>
-                            <p class="card-text" th:text="#{home4.message}">Un spectacle époustouflant avec des performances inoubliables.</p>
+                            <h5 class="card-title">Alice Au Pays Des Merveilles</h5>
+                            <p class="card-text">Un spectacle époustouflant avec des performances inoubliables.</p>
                             <a href="#" class="btn btn-primary-custom" onclick="toggleInfo(event, this)">En savoir plus</a>
                             <div class="info-bubble">
-                                <p>Plus d'informations sur la Nouvelle Pièce 2 : Un spectacle époustouflant avec des performances inoubliables.</p>
+                                <p>les aventures fantastiques d'Alice, une jeune fille curieuse, 
+                                qui tombe dans un terrier de lapin et découvre un monde étrange peuplé de personnages excentriques et merveilleux.</p>
                             </div>
                         </div>
                     </div>
@@ -205,11 +213,13 @@
                     <div class="card">
                         <img src="/images/nouveaute3.jpg" class="card-img-top" alt="Nouveauté 3">
                         <div class="card-body">
-                            <h5 class="card-title" th:text="#{home3.message}">Nouvelle Pièce 3</h5>
-                            <p class="card-text" th:text="#{home4.message}">Plongez dans un univers théâtral unique en son genre.</p>
+                            <h5 class="card-title">Cyrano De Bergerac</h5>
+                            <p class="card-text">Plongez dans un univers théâtral unique en son genre.</p>
                             <a href="#" class="btn btn-primary-custom" onclick="toggleInfo(event, this)">En savoir plus</a>
                             <div class="info-bubble">
-                                <p>Plus d'informations sur la Nouvelle Pièce 3 : Plongez dans un univers théâtral unique en son genre.</p>
+                                <p>l'histoire de Cyrano, un poète et épéiste au grand cœur, 
+                                connu pour son nez proéminent, qui aide secrètement le beau Christian à courtiser la femme qu'il aime,
+                                Roxane, malgré ses propres sentiments pour elle.</p>
                             </div>
                         </div>
                     </div>

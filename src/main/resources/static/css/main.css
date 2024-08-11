@@ -49,3 +49,26 @@ a:hover {
   text-decoration: underline; /* Ajouter un soulignement au survol */
 }
 
+
+
+
+
+
+.formLogin .form-control {
+    width: 150%; /* Assure que le champ prend toute la largeur disponible */
+    max-width: 4000px; /* Limite la largeur maximale */
+    padding: 10px 12px; /* Ajuste l'espacement interne du champ */
+    font-size: 16px; /* Taille de la police à l'intérieur des champs */
+}
+
+.formLogin .input-group-text {
+    font-size: 16px; /* Ajuste la taille de l'icône */
+    padding: 10px 15px; /* Ajuste l'espacement interne de l'icône */
+}
+
+.formLogin .btn {
+    font-size: 16px; /* Ajuste la taille du texte du bouton */
+    padding: 10px; /* Ajuste l'espacement interne du bouton */
+}
+
+

@@ -35,8 +35,9 @@ public class User {
 
     @NotBlank(message = "Le mot de passe ne peut être vide")
     @Size(min = 6, message = "Le mot de passe doit contenir au moins 6 caractères")
-    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).*$", message = "Le mot de passe doit contenir un caractère spécial et une majuscule minimum")
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~])(?=\\S+$).*$", message = "Le mot de passe doit contenir un caractère spécial et une majuscule minimum")
     private String password;
+
 
 
     private String firstname;
@@ -50,8 +51,6 @@ public class User {
     private String langue;
     private LocalDateTime created_at;
 
-  /* @ManyToMany(mappedBy = "users")
-    private List<Role> roles = new ArrayList<>();*/
     
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
