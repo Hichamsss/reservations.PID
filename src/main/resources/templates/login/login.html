@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" layout:decorate="~{layouts/main}"
+	  >
+
+<head>
+	<title>Login page</title>
+</head>
+
+<body>
+
+	<div layout:fragment="content">
+		<div class="container">
+			<div class="d-flex justify-content-center align-items-center vh-100 ">
+				<div th:if="${param.success}" class="text-success">
+					<p>Vous vous êtes inscrit avec succès ! Veuillez vérifier votre boîte de réception pour le courrier de confirmation.</p>
+				</div>
+				<div class="red-shadow">
+				<div class ="row justify-content-center p-0 m-0 " width="300px">
+
+					<div class="col-md-5 formLogin justify-content-center d-flex align-items-center">
+						<div class="text-center w-75">
+							<div class="mb-5">
+								<h2 class="form-signin-heading">"Welcome Back!"
+								</h2>
+								<h6>Connect to Your Account and Continue</h6>
+							</div>
+
+							<form class="form-signin" method="post" th:action="@{/login}">
+
+							<div class="input-group form-group mb-3">
+									<span class="input-group-text" ><i class="fas fa-user"></i></span>
+									<input type="text" id="username" name="username" class="form-control"
+										   placeholder="Username" required="" autofocus="">
+							</div>
+
+							<div class="input-group form-group mb-5">
+								<span class="input-group-text" ><i class="fa-solid fa-unlock-keyhole"></i></span>
+								<input type="password" id="password" name="password" class="form-control"
+									placeholder="Password" required="">
+							</div>
+
+								<button class="btn btn-lg btn-light fs-6 w-100 mb-2" type="submit">Log In</button>
+
+						</form>
+
+							<hr>
+
+							<p>Don't have an Account! <a th:href="@{/register}"  class="text-decoration-none text-info fw-bold">Sign Up Here</a></p>
+							<a th:href="@{/forgot-password}"  class="text-decoration-none text-info fw-bold">Forgot Password ?</a>
+						</div>
+					</div>
+
+					<div class="col-md-7 p-0 text-center">
+
+						<img src="/images/loginImg.webp" class="img-fluid" style="filter: blur(5px);">
+					</div>
+				</div>
+
+			</div>
+			</div>
+		</div>
+
+
+	</div>
+
+
+</body>
+
+</html>
