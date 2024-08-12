@@ -59,15 +59,23 @@
         }
     </script>
     
-    <!-- Script pour la sélection des sièges -->
+    <!-- Script pour la sélection des sièges avec limitation par nbPlaces -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const seats = document.querySelectorAll('.seat:not(.reserved)');
             const selectedSeatsInput = document.getElementById('selectedSeats');
+            const maxSeats = parseInt(document.getElementById('nbPlacesValue2').innerText, 10); // Récupérer la valeur de nbPlaces depuis le deuxième affichage
 
             seats.forEach(seat => {
                 seat.addEventListener('click', function() {
-                    this.classList.toggle('selected');
+                    const selectedSeats = document.querySelectorAll('.seat.selected');
+                    if (this.classList.contains('selected')) {
+                        this.classList.remove('selected');
+                    } else if (selectedSeats.length < maxSeats) {
+                        this.classList.add('selected');
+                    } else {
+                        alert(`Vous ne pouvez sélectionner que ${maxSeats} siège(s).`);
+                    }
                     updateSelectedSeats();
                 });
             });

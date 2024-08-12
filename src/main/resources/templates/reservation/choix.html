@@ -16,7 +16,7 @@
         }
 
         .selected {
-            background-color: #28a745;;
+            background-color: #28a745;
             color: white;
         }
 
@@ -54,14 +54,21 @@
             
             <p><strong>Date et heure:</strong> <span th:text="${representationWhen}">Date et heure de la représentation</span></p>
             
+            <!-- Premier affichage du nombre de places -->
             <div class="form-group">
-                <p><strong>Nombre de places :</strong> <span th:text="${nbPlaces}">1</span></p>
+                <p><strong>Nombre de places :</strong> <span id="nbPlacesValue1" th:text="${nbPlaces}">1</span></p>
             </div>
+
 
             <form th:action="@{/confirmReservation}" method="post">
                 <input type="hidden" name="representationWhen" th:value="${representationWhen}"/>
                 
                 <h2>Carte des sièges</h2>
+                
+                <!-- Deuxième affichage du nombre de places avec un autre nom -->
+                <div class="form-group">
+                    <p><strong>Choisissez vos sièges:</strong> <span id="nbPlacesValue2" th:text="${nbPlaces}">1</span> place(s)</p>
+                </div>
 
                 <!-- Carte des sièges -->
                 <div class="screen">La scène</div>
@@ -89,10 +96,18 @@
         document.addEventListener('DOMContentLoaded', function () {
             const seats = document.querySelectorAll('.seat:not(.reserved)');
             const selectedSeatsInput = document.getElementById('selectedSeats');
+            const maxSeats = parseInt(document.getElementById('nbPlacesValue2').innerText, 10); // Utiliser la valeur du deuxième affichage
 
             seats.forEach(seat => {
                 seat.addEventListener('click', () => {
-                    seat.classList.toggle('selected');
+                    const selectedSeats = document.querySelectorAll('.seat.selected');
+                    if (seat.classList.contains('selected')) {
+                        seat.classList.remove('selected');
+                    } else if (selectedSeats.length < maxSeats) {
+                        seat.classList.add('selected');
+                    } else {
+                        alert(`Vous ne pouvez sélectionner que ${maxSeats} siège(s).`);
+                    }
                     updateSelectedSeats();
                 });
             });
