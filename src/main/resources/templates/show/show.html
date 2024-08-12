@@ -27,11 +27,18 @@
 
             <h2>Liste des représentations</h2>
             <ul th:if="${#lists.size(show.representations) >= 1}">
-                <li th:each="representation : ${show.representations}">
-                    <span th:text="${#temporals.format(representation.when, 'dd-MM-yyyy HH:mm')}">12-10-2012 13:30</span>
-                    <a th:href="@{'/reservations/new?representationId=' + ${representation.id}}" class="btn btn-primary btn-sm ms-2">Réserver</a>
-                </li>
-            </ul>
+		    <li th:each="representation : ${show.representations}">
+		        <span th:text="${#temporals.format(representation.when, 'dd-MM-yyyy HH:mm')}">12-10-2012 13:30</span>
+		        <form th:action="@{/confirmReservation}" method="post">
+		            <input type="hidden" name="representationWhen" th:value="${representation.when}"/>
+		            <input type="hidden" name="nbPlaces" value="1"/>
+		            <button type="submit" class="btn btn-primary btn-sm ms-2">Réserver</button>
+		        </form>
+		    </li>
+			</ul>
+
+			</ul>
+
             <p th:if="${#lists.size(show.representations) == 0}">Aucune représentation</p>
 
             <h2>Liste des artistes</h2>

@@ -18,7 +18,11 @@ import lombok.Data;
 @Data
 public class CustomUserDetails implements UserDetails{
 
-      private String username;
+   
+	private static final long serialVersionUID = 1L;
+	
+	private Long id;
+	  private String username;
       private String password;
       private String firstname;
       private String lastname;
@@ -32,6 +36,7 @@ public class CustomUserDetails implements UserDetails{
 	  
 	  public CustomUserDetails(User user)
 		{
+		  this.id = user.getId();
 		this.username = user.getLogin();
 		this.password = user.getPassword();
 		this.firstname = user.getFirstname();
@@ -54,7 +59,6 @@ public class CustomUserDetails implements UserDetails{
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
 		return password;
 	}
 
