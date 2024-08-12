@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" layout:decorate="~{layouts/main}">
+<head>
+    <title>Paiement</title>
+    <style>
+        /* Formulaire de paiement */
+        .payment-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 50px auto;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .payment-container h1 {
+            font-size: 36px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .payment-container p {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .form-group label {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+        }
+
+        .btn-primary {
+            background-color: #28a745;
+            border-color: #28a745;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 10px;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: #218838;
+            border-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="payment-container">
+            <h1>Paiement</h1>
+            
+            <p><strong>Date et heure de la pièce :</strong> <span th:text="${representationWhen}"></span></p>
+            <p><strong>Sièges sélectionnés :</strong> <span th:text="${selectedSeats}"></span></p>
+            <p><strong>Nombre de places :</strong> <span th:text="${nbPlaces}"></span></p>
+
+            <form th:action="@{/panier/processPayment}" method="post">
+                <div class="form-group">
+                    <label for="cardNumber">Numéro de carte</label>
+                    <input type="text" class="form-control" id="cardNumber" name="cardNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="expiryDate">Date d'expiration</label>
+                    <input type="text" class="form-control" id="expiryDate" name="expiryDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="cvv">CVV</label>
+                    <input type="text" class="form-control" id="cvv" name="cvv" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Procéder au paiement</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

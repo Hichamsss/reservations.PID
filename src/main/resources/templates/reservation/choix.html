@@ -51,23 +51,25 @@
     <div class="container">
         <div layout:fragment="content">
             <h1>Choix des places</h1>
-            
-            <p><strong>Date et heure:</strong> <span th:text="${representationWhen}">Date et heure de la représentation</span></p>
-            
+
+            <p><strong>Date et heure de la pièce:</strong> <span th:text="${representationWhen}">Date et heure de la représentation</span></p>
+
             <!-- Premier affichage du nombre de places -->
             <div class="form-group">
                 <p><strong>Nombre de places :</strong> <span id="nbPlacesValue1" th:text="${nbPlaces}">1</span></p>
             </div>
 
-
-            <form th:action="@{/confirmReservation}" method="post">
+            <!-- Formulaire principal -->
+            <form th:action="@{/panier/goToPayment}" method="post">
                 <input type="hidden" name="representationWhen" th:value="${representationWhen}"/>
-                
+                <input type="hidden" name="selectedSeats" id="selectedSeats" />
+                <input type="hidden" name="nbPlaces" th:value="${nbPlaces}"/>
+
                 <h2>Carte des sièges</h2>
-                
+
                 <!-- Deuxième affichage du nombre de places avec un autre nom -->
                 <div class="form-group">
-                    <p><strong>Choisissez vos sièges:</strong> <span id="nbPlacesValue2" th:text="${nbPlaces}">1</span> place(s)</p>
+                    <p><strong>Choisissez vos </strong> <span id="nbPlacesValue2" th:text="${nbPlaces}">1</span> place(s)</p>
                 </div>
 
                 <!-- Carte des sièges -->
@@ -77,17 +79,26 @@
                     <div th:each="row : ${#numbers.sequence(1, 10)}" class="seat-row">
                         <div th:each="col : ${#numbers.sequence(1, 10)}"
                              class="seat"
-                             th:classappend="${col == 3 || col == 4 && row == 2 || row == 5 ? ' reserved' : ''}"
+                             th:classappend="${(row == 3 && col == 1) || 
+                              (row == 3 && col == 9) ||
+                              (row == 5 && col == 9) ||
+                              (row == 5 && col == 10) ||
+                              (row == 7 && col == 3) ||
+                              (row == 7 && col == 4) ||
+                              (row == 2 && col == 5) ||
+                              (row == 2 && col == 6) ||
+                              (row == 8 && col == 8) ||
+                              (row == 6 && col == 3) ||
+                              (row == 6 && col == 4) ||
+                              (row == 10 && col == 5) ? ' reserved' : ''}"
                              th:data-seat="${'R' + row + 'C' + col}">
                             <span th:text="${'R' + row + 'C' + col}"></span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Champ caché pour stocker les sièges sélectionnés -->
-                <input type="hidden" name="selectedSeats" id="selectedSeats" />
-
-                <button type="submit" class="btn btn-primary">Confirmer la réservation</button>
+                <!-- Bouton pour soumettre le formulaire -->
+                <button type="submit" class="btn btn-primary">Etape suivante</button>
             </form>
         </div>
     </div>
