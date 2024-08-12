@@ -16,7 +16,7 @@
         }
 
         .selected {
-            background-color: #28a745; /* Vert pour les sièges sélectionnés */
+            background-color: #28a745;;
             color: white;
         }
 
@@ -89,16 +89,17 @@
         document.addEventListener('DOMContentLoaded', function () {
             const seats = document.querySelectorAll('.seat:not(.reserved)');
             const selectedSeatsInput = document.getElementById('selectedSeats');
+
             seats.forEach(seat => {
-                seat.addEventListener('click', function() {
-                    this.classList.toggle('selected');
+                seat.addEventListener('click', () => {
+                    seat.classList.toggle('selected');
                     updateSelectedSeats();
                 });
             });
 
             function updateSelectedSeats() {
                 const selectedSeats = document.querySelectorAll('.seat.selected');
-                const seatsIndex = Array.from(selectedSeats).map(seat => seat.getAttribute('data-seat'));
+                const seatsIndex = [...selectedSeats].map(seat => seat.getAttribute('data-seat'));
                 selectedSeatsInput.value = seatsIndex.join(',');
             }
         });
