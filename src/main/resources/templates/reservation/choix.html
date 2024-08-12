@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" layout:decorate="~{layouts/main}">
+<head>
+    <title>Choix des places</title>
+    <style>
+        .seat {
+            width: 30px;
+            height: 30px;
+            margin: 3px;
+            background-color: #ccc;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 5px;
+        }
+
+        .selected {
+            background-color: #28a745; /* Vert pour les sièges sélectionnés */
+            color: white;
+        }
+
+        .reserved {
+            background-color: #e74c3c;
+            color: white;
+            cursor: not-allowed;
+        }
+
+        .seat-row {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .screen {
+            width: 80%;
+            height: 40px;
+            background-color: #000;
+            color: white;
+            text-align: center;
+            line-height: 40px;
+            margin: 20px auto;
+            border-radius: 5px;
+        }
+
+        .container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div layout:fragment="content">
+            <h1>Choix des places</h1>
+            
+            <p><strong>Date et heure:</strong> <span th:text="${representationWhen}">Date et heure de la représentation</span></p>
+            
+            <div class="form-group">
+                <p><strong>Nombre de places :</strong> <span th:text="${nbPlaces}">1</span></p>
+            </div>
+
+            <form th:action="@{/confirmReservation}" method="post">
+                <input type="hidden" name="representationWhen" th:value="${representationWhen}"/>
+                
+                <h2>Carte des sièges</h2>
+
+                <!-- Carte des sièges -->
+                <div class="screen">La scène</div>
+                <div id="seats-container">
+                    <!-- Générer 10 rangées avec 10 sièges chacune -->
+                    <div th:each="row : ${#numbers.sequence(1, 10)}" class="seat-row">
+                        <div th:each="col : ${#numbers.sequence(1, 10)}"
+                             class="seat"
+                             th:classappend="${col == 3 || col == 4 && row == 2 || row == 5 ? ' reserved' : ''}"
+                             th:data-seat="${'R' + row + 'C' + col}">
+                            <span th:text="${'R' + row + 'C' + col}"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Champ caché pour stocker les sièges sélectionnés -->
+                <input type="hidden" name="selectedSeats" id="selectedSeats" />
+
+                <button type="submit" class="btn btn-primary">Confirmer la réservation</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const seats = document.querySelectorAll('.seat:not(.reserved)');
+            const selectedSeatsInput = document.getElementById('selectedSeats');
+            seats.forEach(seat => {
+                seat.addEventListener('click', function() {
+                    this.classList.toggle('selected');
+                    updateSelectedSeats();
+                });
+            });
+
+            function updateSelectedSeats() {
+                const selectedSeats = document.querySelectorAll('.seat.selected');
+                const seatsIndex = Array.from(selectedSeats).map(seat => seat.getAttribute('data-seat'));
+                selectedSeatsInput.value = seatsIndex.join(',');
+            }
+        });
+    </script>
+</body>
+</html>
