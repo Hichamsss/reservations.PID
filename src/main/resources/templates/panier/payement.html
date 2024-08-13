@@ -63,6 +63,12 @@
             <p><strong>Date et heure de la pièce :</strong> <span th:text="${representationWhen}"></span></p>
             <p><strong>Sièges sélectionnés :</strong> <span th:text="${selectedSeats}"></span></p>
             <p><strong>Nombre de places :</strong> <span th:text="${nbPlaces}"></span></p>
+            <p><strong>Places avec réduction :</strong> <span th:text="${nbReducedPlaces}"></span></p>
+            
+            <!-- Ajout du total à payer -->
+            <p><strong>Total à payer :</strong> 
+			    <span th:text="${totalPrice} + ' €'"></span>
+			</p>
 
             <form th:action="@{/panier/processPayment}" method="post">
                 <div class="form-group">

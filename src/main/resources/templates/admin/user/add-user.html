@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout"
+	layout:decorate="~{admin/layouts/admin}">
+
+<head>
+	<title>Création d'un utilisateur</title>
+	<style>
+		.fieldError {
+			color: red;
+		}
+		
+	</style>
+</head>
+
+<body>
+    <div layout:fragment="content" class="row justify-content-center add-user">
+        <div class="col-12 col-md-8">
+            <h1>Nouvel utilisateur</h1>
+
+            <form th:action="@{/admin/add-user}" th:object="${user}" method="post">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Login:</label>
+                        <input type="text" th:field="*{login}" class="form-control">
+                        <p th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="fieldError"></p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Password:</label>
+                        <input type="password" th:field="*{password}" class="form-control">
+                        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Firstname:</label>
+                        <input type="text" th:field="*{firstname}" class="form-control">
+                        <p th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" class="fieldError"></p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Lastname:</label>
+                        <input type="text" th:field="*{lastname}" class="form-control">
+                        <p th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" class="fieldError"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Email:</label>
+                        <input type="email" th:field="*{email}" class="form-control">
+                        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError"></p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Langue:</label>
+                        <input type="text" th:field="*{langue}" class="form-control">
+                        <p th:if="${#fields.hasErrors('langue')}" th:errors="*{langue}" class="fieldError"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <label>Rôles:</label>
+                        <div th:each="role : ${roles}">
+                            <input type="checkbox" th:field="*{roles}" th:value="${role.id}" />
+                            <label th:text="${role.role}"></label><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                        <button type="reset" class="btn btn-secondary">Réinitialiser</button>
+                        <a th:href="@{/admin/users}" class="btn btn-danger">Annuler</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+s
+
+</html>

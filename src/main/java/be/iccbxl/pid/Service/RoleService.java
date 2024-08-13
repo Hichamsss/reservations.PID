@@ -12,36 +12,37 @@ import be.iccbxl.pid.Repository.RoleRepository;
 
 @Service
 public class RoleService {
-	@Autowired
-	private RoleRepository repository;
-	
-	
-	public List<Role> getAll() {
-		List<Role> roles = new ArrayList<>();
-		
-		repository.findAll().forEach(roles::add);
-		
-		return roles;
-	}
-	
-	public Role get(String id) {
-		Long indice = (long) Integer.parseInt(id);
-		Optional<Role> role = repository.findById(indice);
-		
-		return role.isPresent() ? role.get() : null;
-	}
 
-	public void add(Role role) {
-		repository.save(role);
-	}
+    @Autowired
+    private RoleRepository roleRepository;
 
-	public void update(String id, Role role) {
-		repository.save(role);
-	}
+    public List<Role> getAll() {
+        List<Role> roles = new ArrayList<>();
+        roleRepository.findAll().forEach(roles::add);
+        return roles;
+    }
+    
+    public Role get(String id) {
+        Long indice = (long) Integer.parseInt(id);
+        Optional<Role> role = roleRepository.findById(indice);
+        return role.orElse(null);
+    }
+    
+    public void add(Role role) {
+        roleRepository.save(role);
+    }
+    public void update(String id, Role role) {
+        roleRepository.save(role);
+    }
 
-	public void delete(String id) {
-		Long indice = (long) Integer.parseInt(id);
-		
-		repository.deleteById(indice);
-	}
+    public void delete(String id){
+        Long indice = (long) Integer.parseInt(id);
+        roleRepository.deleteById(indice);
+
+    }
+    
+    public Role findByRole(String roleName) {
+        return roleRepository.findByRole(roleName);
+    }
+
 }

@@ -97,8 +97,21 @@
                     </div>
                 </div>
 
+                <!-- Deuxième affichage du nombre de places -->
+                <div class="form-group mt-3">
+                    <p><strong>Total de places sélectionnées :</strong> <span id="nbPlacesValue3" th:text="${nbPlaces}">1</span></p>
+                </div>
+
+                <!-- Liste déroulante pour les places seniors/étudiants -->
+                <div class="form-group mt-3">
+                    <p><strong>Parmi les places choisies, combien sont pour les seniors ou étudiants?</strong></p>
+                    <select name="nbReducedPlaces" id="nbReducedPlaces">
+                        <option th:each="i : ${#numbers.sequence(0, 10)}" th:value="${i}" th:text="${i}">0</option>
+                    </select>
+                </div>
+
                 <!-- Bouton pour soumettre le formulaire -->
-                <button type="submit" class="btn btn-primary">Etape suivante</button>
+                <button type="submit" class="btn btn-primary mt-3">Etape suivante</button>
             </form>
         </div>
     </div>
@@ -108,6 +121,7 @@
             const seats = document.querySelectorAll('.seat:not(.reserved)');
             const selectedSeatsInput = document.getElementById('selectedSeats');
             const maxSeats = parseInt(document.getElementById('nbPlacesValue2').innerText, 10); // Utiliser la valeur du deuxième affichage
+            const nbReducedPlacesSelect = document.getElementById('nbReducedPlaces');
 
             seats.forEach(seat => {
                 seat.addEventListener('click', () => {
@@ -120,6 +134,7 @@
                         alert(`Vous ne pouvez sélectionner que ${maxSeats} siège(s).`);
                     }
                     updateSelectedSeats();
+                    updateReducedPlacesOptions(selectedSeats.length);
                 });
             });
 
@@ -128,6 +143,19 @@
                 const seatsIndex = [...selectedSeats].map(seat => seat.getAttribute('data-seat'));
                 selectedSeatsInput.value = seatsIndex.join(',');
             }
+
+            function updateReducedPlacesOptions(maxReducedPlaces) {
+                nbReducedPlacesSelect.innerHTML = '';
+                for (let i = 0; i <= Math.min(maxReducedPlaces, 10); i++) {
+                    const option = document.createElement('option');
+                    option.value = i;
+                    option.textContent = i;
+                    nbReducedPlacesSelect.appendChild(option);
+                }
+            }
+
+            // Initialiser les options de la liste déroulante pour les places réduites au chargement
+            updateReducedPlacesOptions(0);
         });
     </script>
 </body>

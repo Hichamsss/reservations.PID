@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" lang="fr"
+	layout:decorate="~{admin/layouts/admin}">
+
+<head>
+    <title>Dashboard</title>
+    <!-- Ajoutez des liens vers les fichiers CSS spécifiques si nécessaire -->
+</head>
+
+<body>
+
+<div layout:fragment="content" class="my-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 offset-md-1">
+                <div class="card bloc1">
+                    <div class="card-body">
+                        <h2 class="card-number fs-1" th:text="${totalUsers}">0</h2>
+                        <h3 class="card-title mb-2 text-end fs-2">Utilisateurs</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 offset-md-1">
+                <div class="card bloc2">
+                    <div class="card-body">
+                        <h2 class="card-number fs-1" th:text="${totalShows}">0</h2>
+                        <h3 class="card-title mb-2 text-end fs-2">Spectacles</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 offset-md-1">
+                <div class="card bloc3">
+                    <div class="card-body">
+                        <h2 class="card-number fs-1" th:text="${totalRepresentations}">0</h2>
+                        <h3 class="card-title mb-2 text-end fs-2">Représentations</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
