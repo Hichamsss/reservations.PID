@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Merci pour votre reservation</title>
+	<link rel="stylesheet" href="/css/checkout.css">
+	<script src="/js/return.js" defer></script>
+</head>
+
+<body>
+	<section id="success" class="hidden">
+		<p>
+			Nous vous remercions de votre reservation ! Un email de confirmation sera envoyé à <span
+				id="customer-email"></span>.
+		</p>
+
+		<a th:href="@{/home}">Retour vers l'acceuil</a>
+	</section>
+</body>
+
+</html>

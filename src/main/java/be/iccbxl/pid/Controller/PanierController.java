@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 @Controller
 @RequestMapping("/panier")
@@ -24,27 +25,43 @@ public class PanierController {
                               @RequestParam("nbPlaces") int nbPlaces,
                               @RequestParam("nbReducedPlaces") int nbReducedPlaces,
                               Model model) {
-        // Convertir le paramètre representationWhen en LocalDateTime
-        LocalDateTime when = LocalDateTime.parse(representationWhen);
+        try {
+            // Convertir le paramètre representationWhen en LocalDateTime
+            LocalDateTime when = LocalDateTime.parse(representationWhen);
 
-        // Récupérer l'objet Representation correspondant
-        Representation representation = representationRepository.findByWhen(when);
+            // Récupérer l'objet Representation correspondant
+            Representation representation = representationRepository.findByWhen(when);
 
-        double totalPrice = 0;
-        if (representation != null && representation.getShow() != null) {
+            if (representation == null || representation.getShow() == null) {
+                model.addAttribute("error", "La représentation spécifiée n'existe pas.");
+                return "panier/error"; // Rediriger vers une page d'erreur personnalisée
+            }
+
+            // Valider le nombre de places réduites
+            if (nbReducedPlaces > nbPlaces) {
+                nbReducedPlaces = nbPlaces; // Limiter le nombre de réductions au nombre total de places
+            }
+
             double fullPrice = representation.getShow().getPrice();
             double reducedPrice = fullPrice * 0.7;
-            totalPrice = (nbPlaces - nbReducedPlaces) * fullPrice + nbReducedPlaces * reducedPrice;
+            double totalPrice = (nbPlaces - nbReducedPlaces) * fullPrice + nbReducedPlaces * reducedPrice;
+
+            // Formater le totalPrice pour qu'il ait deux chiffres après la virgule
+            String formattedTotalPrice = String.format("%.2f", totalPrice);
+
+            // Ajouter les informations de réservation au modèle
+            model.addAttribute("representationWhen", representationWhen);
+            model.addAttribute("selectedSeats", selectedSeats);
+            model.addAttribute("nbPlaces", nbPlaces);
+            model.addAttribute("nbReducedPlaces", nbReducedPlaces);
+            model.addAttribute("totalPrice", formattedTotalPrice); // Ajouter le prix total formaté au modèle
+
+            // Rediriger vers la page de paiement
+            return "panier/payement"; // Indique la vue à rendre dans le dossier templates/panier/
+
+        } catch (DateTimeParseException e) {
+            model.addAttribute("error", "La date et l'heure spécifiées ne sont pas valides.");
+            return "panier/error"; // Rediriger vers une page d'erreur personnalisée
         }
-
-        // Ajouter les informations de réservation au modèle
-        model.addAttribute("representationWhen", representationWhen);
-        model.addAttribute("selectedSeats", selectedSeats);
-        model.addAttribute("nbPlaces", nbPlaces);
-        model.addAttribute("nbReducedPlaces", nbReducedPlaces);
-        model.addAttribute("totalPrice", totalPrice); // Ajouter le prix total au modèle
-
-        // Rediriger vers la page de paiement
-        return "panier/payement"; // Indique la vue à rendre dans le dossier templates/panier/
     }
 }

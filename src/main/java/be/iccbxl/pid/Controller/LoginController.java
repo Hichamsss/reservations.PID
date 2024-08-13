@@ -44,12 +44,10 @@ public class LoginController {
     }
 
 
-
-
-
-
-
-    
+    @GetMapping("/forgot-password")
+    public String forgotPasswordPage() {
+        return "login/forgot-password";
+    }    
 
 }
     
