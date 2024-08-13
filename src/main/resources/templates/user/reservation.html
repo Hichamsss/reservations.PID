@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" layout:decorate="~{layouts/main}"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<title>Mes Réservations</title>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="container">
+			<h1 class="m-3 p-1">Mes Réservations</h1>
+			<table id="reservationTable" class="uk-table uk-table-hover uk-table-striped" style="width:100%">
+				<thead>
+					<tr>
+						<th>N° ref</th>
+						<th>Date</th>
+						<th>Représentation</th>
+						<th>Show</th>
+						<th>Places</th>
+						<th>Total</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="reservation : ${userReservations}">
+						<td th:text="${reservation.id}"></td>
+						<td th:text="${#temporals.format(reservation.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
+						<td th:text="${#temporals.format(reservation.representation.when, 'd MMMM yyyy à HH:mm')}"></td>
+						<td th:text="${reservation.representation.show.title}"></td>
+						<td th:text="${reservation.nbPlaces}"></td>
+						<td>
+							<span
+								th:text="${#numbers.formatDecimal(reservation.representation.show.price * reservation.nbPlaces, 2, 'COMMA', 2, 'POINT')}"></span>
+							€
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+
+</html>

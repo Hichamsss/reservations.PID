@@ -68,10 +68,8 @@ public class UserService {
 		userRepository.save(user);
 	}
 
-	public void deleteUser(String id) {
-		Long indice = (long) Integer.parseInt(id);
-
-		userRepository.deleteById(indice);
+	public void deleteUser(Long id) {
+		userRepository.deleteById(id);
 	}
 
 	public User findByLogin(String login) {
