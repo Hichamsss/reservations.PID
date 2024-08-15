@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout"
+	layout:decorate="~{layouts/main}">
+
+<head>
+	<title>Inscription</title>
+</head>
+
+<body>
+	<div layout:fragment="content">
+
+		<div class="container register ">
+			<div class="row">
+				<div class="col-md-3 register-left">
+					<img src="/images/billet.jpg" alt="" />
+					<h3>Bienvenue</h3>
+					<p>Premiers venus, mieux servis</p>
+					<input type="submit" name="" value="Login" /><br />
+				</div>
+				<div class="col-md-9 register-right">
+					<h3 class="register-heading">ShopUpNow</h3>
+					<div class="tab-content" id="myTabContent">
+						<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+							<!-- Message de succès -->
+							<div th:if="${successMessage}" class="alert alert-success">
+								<p th:text="${successMessage}"></p>
+							</div>
+
+							<form class="row register-form" th:object="${user}" th:action="@{/register}" method="post">
+								<div class="col-md-6">
+									<div class="form-group mb-4">
+										<input type="text" class="form-control" placeholder="Login *" id="login" th:field="*{login}">
+										<!-- Pour afficher les erreurs spécifiques au champ login -->
+										<p th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="error-text text-danger"></p>
+									</div>
+
+									<div class="form-group mb-4">
+										<input type="password" class="form-control" placeholder="Password *" id="password" th:field="*{password}">
+										<!-- Pour afficher les erreurs spécifiques au champ password -->
+										<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-text text-danger"></p>
+									</div>
+									<div class="form-group mb-4">
+										<input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password *"
+											   onkeyup="validatePassword()">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group mb-4">
+										<input type="text" class="form-control" id="firstname" th:field="*{firstname}" placeholder="Votre Prénom *">
+									</div>
+									<div class="form-group mb-4">
+										<input type="text" class="form-control" id="lastname" th:field="*{lastname}" placeholder="Votre Nom *">
+									</div>
+									<div class="form-group mb-4">
+										<input type="email" class="form-control" id="email" th:field="*{email}" placeholder="Votre Email *">
+										<!-- Pour afficher les erreurs spécifiques au champ email -->
+										<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-text text-danger"></p>
+										<p th:if="${errorEmail}" th:text="${errorEmail}" class="error-text text-danger"></p>
+									</div>
+								</div>
+								<div class="form-group mb-3">
+									<select class="form-control" th:field="*{langue}">
+										<option value="">Veuillez sélectionner votre langue</option>
+										<option th:value="FR">FR</option>
+										<option th:value="NL">NL</option>
+										<option th:value="EN">EN</option>
+									</select>
+								</div>
+								<button type="submit" class="text-center btnRegister">Register</button>
+							</form>
+							
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<script>
+		function validatePassword() {
+			var password = document.getElementById("password");
+			var confirmPassword = document.getElementById("confirmPassword");
+			var passwordHelpBlock = document.getElementById("passwordHelpBlock");
+
+			if (password.value != confirmPassword.value) {
+				passwordHelpBlock.textContent = "Les mots de passe ne correspondent pas.";
+				return false;
+			} else {
+				passwordHelpBlock.textContent = "";
+				return true;
+			}
+		}
+	</script>
+</body>
+
+</html>

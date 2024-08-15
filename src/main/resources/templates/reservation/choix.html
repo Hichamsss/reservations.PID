@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" layout:decorate="~{layouts/main}">
+<head>
+    <title>Choix des places</title>
+    <style>
+        .seat {
+            width: 30px;
+            height: 30px;
+            margin: 3px;
+            background-color: #ccc;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 5px;
+        }
+
+        .selected {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .reserved {
+            background-color: #e74c3c;
+            color: white;
+            cursor: not-allowed;
+        }
+
+        .seat-row {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .screen {
+            width: 80%;
+            height: 40px;
+            background-color: #000;
+            color: white;
+            text-align: center;
+            line-height: 40px;
+            margin: 20px auto;
+            border-radius: 5px;
+        }
+
+        .container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div layout:fragment="content">
+            <h1>Choix des places</h1>
+
+            <p><strong>Date et heure de la pièce:</strong> <span th:text="${representationWhen}">Date et heure de la représentation</span></p>
+
+            <!-- Premier affichage du nombre de places -->
+            <div class="form-group">
+                <p><strong>Nombre de places :</strong> <span id="nbPlacesValue1" th:text="${nbPlaces}">1</span></p>
+            </div>
+
+            <!-- Formulaire principal -->
+            <form th:action="@{/panier/goToPayment}" method="post">
+                <input type="hidden" name="representationWhen" th:value="${representationWhen}"/>
+                <input type="hidden" name="selectedSeats" id="selectedSeats" />
+                <input type="hidden" name="nbPlaces" th:value="${nbPlaces}"/>
+
+                <h2>Carte des sièges</h2>
+
+                <!-- Deuxième affichage du nombre de places avec un autre nom -->
+                <div class="form-group">
+                    <p><strong>Choisissez vos </strong> <span id="nbPlacesValue2" th:text="${nbPlaces}">1</span> place(s)</p>
+                </div>
+
+                <!-- Carte des sièges -->
+                <div class="screen">La scène</div>
+                <div id="seats-container">
+                    <!-- Générer 10 rangées avec 10 sièges chacune -->
+                    <div th:each="row : ${#numbers.sequence(1, 10)}" class="seat-row">
+                        <div th:each="col : ${#numbers.sequence(1, 10)}"
+                             class="seat"
+                             th:classappend="${(row == 3 && col == 1) || 
+                              (row == 3 && col == 9) ||
+                              (row == 5 && col == 9) ||
+                              (row == 5 && col == 10) ||
+                              (row == 7 && col == 3) ||
+                              (row == 7 && col == 4) ||
+                              (row == 2 && col == 5) ||
+                              (row == 2 && col == 6) ||
+                              (row == 8 && col == 8) ||
+                              (row == 6 && col == 3) ||
+                              (row == 6 && col == 4) ||
+                              (row == 10 && col == 5) ? ' reserved' : ''}"
+                             th:data-seat="${'R' + row + 'C' + col}">
+                            <span th:text="${'R' + row + 'C' + col}"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deuxième affichage du nombre de places -->
+                <div class="form-group mt-3">
+                    <p><strong>Total de places sélectionnées :</strong> <span id="nbPlacesValue3" th:text="${nbPlaces}">1</span></p>
+                </div>
+
+                <!-- Liste déroulante pour les places seniors/étudiants -->
+                <div class="form-group mt-3">
+                    <p><strong>Parmi les places choisies, combien sont pour les seniors ou étudiants?</strong></p>
+                    <select name="nbReducedPlaces" id="nbReducedPlaces">
+                        <option th:each="i : ${#numbers.sequence(0, 10)}" th:value="${i}" th:text="${i}">0</option>
+                    </select>
+                </div>
+
+                <!-- Bouton pour soumettre le formulaire -->
+                <button type="submit" class="btn btn-primary mt-3">Etape suivante</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const seats = document.querySelectorAll('.seat:not(.reserved)');
+            const selectedSeatsInput = document.getElementById('selectedSeats');
+            const maxSeats = parseInt(document.getElementById('nbPlacesValue2').innerText, 10); // Utiliser la valeur du deuxième affichage
+            const nbReducedPlacesSelect = document.getElementById('nbReducedPlaces');
+
+            seats.forEach(seat => {
+                seat.addEventListener('click', () => {
+                    const selectedSeats = document.querySelectorAll('.seat.selected');
+                    if (seat.classList.contains('selected')) {
+                        seat.classList.remove('selected');
+                    } else if (selectedSeats.length < maxSeats) {
+                        seat.classList.add('selected');
+                    } else {
+                        alert(`Vous ne pouvez sélectionner que ${maxSeats} siège(s).`);
+                    }
+                    updateSelectedSeats();
+                    updateReducedPlacesOptions(selectedSeats.length);
+                });
+            });
+
+            function updateSelectedSeats() {
+                const selectedSeats = document.querySelectorAll('.seat.selected');
+                const seatsIndex = [...selectedSeats].map(seat => seat.getAttribute('data-seat'));
+                selectedSeatsInput.value = seatsIndex.join(',');
+            }
+
+            function updateReducedPlacesOptions(maxReducedPlaces) {
+                nbReducedPlacesSelect.innerHTML = '';
+                for (let i = 0; i <= Math.min(maxReducedPlaces, 10); i++) {
+                    const option = document.createElement('option');
+                    option.value = i;
+                    option.textContent = i;
+                    nbReducedPlacesSelect.appendChild(option);
+                }
+            }
+
+            // Initialiser les options de la liste déroulante pour les places réduites au chargement
+            updateReducedPlacesOptions(0);
+        });
+    </script>
+</body>
+</html>

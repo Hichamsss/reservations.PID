@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" layout:decorate="~{layouts/main}">
+<head>
+    <title>Paiement</title>
+    <style>
+        /* Formulaire de paiement */
+        .payment-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 50px auto;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .payment-container h1 {
+            font-size: 36px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .payment-container p {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .form-group label {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+        }
+
+        .btn-primary {
+            background-color: #28a745;
+            border-color: #28a745;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 10px;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: #218838;
+            border-color: #218838;
+        }
+
+        .payment-method {
+            margin-bottom: 20px;
+        }
+
+        .qr-code {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .qr-code img {
+            max-width: 150px;
+            margin-bottom: 10px;
+        }
+
+        .qr-code p {
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+    <script>
+        function togglePaymentDetails(method) {
+            const cardDetails = document.getElementById('card-details');
+            const qrCode = document.getElementById('qr-code');
+
+            if (method === 'online') {
+                cardDetails.style.display = 'block';
+                qrCode.style.display = 'none';
+            } else if (method === 'qr') {
+                cardDetails.style.display = 'none';
+                qrCode.style.display = 'block';
+            } else {
+                cardDetails.style.display = 'none';
+                qrCode.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="payment-container">
+            <h1>Paiement</h1>
+            
+            <p><strong>Date et heure de la pièce :</strong> <span th:text="${representationWhen}"></span></p>
+            <p><strong>Sièges sélectionnés :</strong> <span th:text="${selectedSeats}"></span></p>
+            <p><strong>Nombre de places :</strong> <span th:text="${nbPlaces}"></span></p>
+            <p><strong>Places avec réduction :</strong> <span th:text="${nbReducedPlaces}"></span></p>
+            
+            <!-- Ajout du total à payer -->
+            <p><strong>Total à payer :</strong> 
+                <span th:text="${totalPrice} + ' €'"></span>
+            </p>
+
+            <form th:action="@{/panier/processPayment}" method="post">
+                <!-- Sélection du mode de paiement -->
+                <div class="form-group payment-method">
+                    <label>Mode de paiement :</label><br>
+                    <div>
+                        <input type="radio" id="bank" name="paymentMethod" value="bank" onclick="togglePaymentDetails('bank')" required>
+                        <label for="bank">Virement bancaire</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="online" name="paymentMethod" value="online" onclick="togglePaymentDetails('online')">
+                        <label for="online">Paiement en ligne</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="qr" name="paymentMethod" value="qr" onclick="togglePaymentDetails('qr')">
+                        <label for="qr">Scanner le QR-Code</label>
+                    </div>
+                </div>
+
+                <!-- Détails pour le paiement en ligne -->
+                <div id="card-details" style="display:none;">
+                    <div class="form-group">
+                        <label for="cardNumber">Numéro de carte</label>
+                        <input type="text" class="form-control" id="cardNumber" name="cardNumber">
+                    </div>
+                    <div class="form-group">
+                        <label for="expiryDate">Date d'expiration</label>
+                        <input type="text" class="form-control" id="expiryDate" name="expiryDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" class="form-control" id="cvv" name="cvv">
+                    </div>
+                </div>
+
+                <!-- QR Code pour le paiement -->
+                <div id="qr-code" class="qr-code">
+                    <img src="/images/qr-code.png" alt="QR Code de paiement">
+                    <p>Scannez ce code pour effectuer votre paiement.</p>
+                    <p>Compte IBAN: BE6700193257858*</p>
+                </div>
+
+                <!-- Instructions pour le virement bancaire -->
+                <div id="bank-details" class="mt-3" style="display:none;">
+                    <p>Effectuez un virement bancaire sur le compte suivant :</p>
+                    <p><strong>Compte IBAN: BE6700193257858*</strong></p>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Procéder au paiement</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" layout:decorate="~{admin/layouts/admin}">
+
+<head>
+	<title>Liste des spectacles</title>
+</head>
+
+<body>
+	<div layout:fragment="content">
+
+		<div class="text-end m-3 ">
+			<a th:href="@{/admin/add-show}" class="btn btn-success">Add</a>
+		</div>
+		<div class="container text-light">
+			<h1 th:text="${title}" class="mb-3"></h1>
+
+			<table id="shows" class="row-border" style="width:100%">
+				<thead>
+					<tr style="text-align: center;">
+						<th class="col-2"></th>
+						<th class="col-1">Titre</th>
+						<th class="col-3">Descritpion</th>
+						<th class="col 1">Reservable</th>
+						<th class="col-2">Artists</th>
+
+						<th class="col-1">Prix</th>
+						<th class="col-1">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:unless="${#lists.isEmpty(shows)}" th:each="show : ${shows}">
+						<td>
+							<img th:src="@{'/images/' + ${show.posterUrl}}" class="card-img-top" alt="..."
+								style="max-height: 100px; max-width: 100px;">
+						</td>
+						<td>
+							<span th:text="${show.title}"></span>
+						</td>
+						<td>
+							<span th:text="${show.description}"></span>
+						</td>
+
+						<td>
+							<span th:if="${show.bookable}">Oui</span>
+							<span th:unless="${show.bookable}">Non</span>
+						</td>
+						<td>
+							<span th:unless="${#lists.isEmpty(show.artistTypes)}">
+								<span th:each="at : ${show.artistTypes}">
+									<span th:text="${at.artist.firstname} + ' ' + ${at.artist.lastname}"></span>
+								</span>
+							</span>
+							<span th:if="${#lists.isEmpty(show.artistTypes)}">Aucun artiste associé</span>
+						</td>
+
+						<td>
+							<span th:text="${show.price} + ' €'"></span>
+						</td>
+						<td>
+							<div class="d-flex gap-2">
+								<a th:href="@{/admin/{id}/edit(id=${show.id})}" class="btn btn-outline-primary">
+									<i class="bi bi-pencil-fill"></i>
+								</a>
+
+								<form th:id="|deleteForm-${show.id}|" th:action="@{/admin/shows/{id}(id=${show.id})}"
+									th:method="delete">
+									<a href="#" class="btn btn-outline-danger" th:onclick="|if(confirm('Confirm delete show #${show.id}'))
+				                    document.getElementById('deleteForm-${show.id}').submit();
+				                    return false;|">
+										<i class="bi bi-trash3-fill"></i>
+									</a>
+								</form>
+							</div>
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="text-end  m-3">
+			<a th:href="@{/exportCSV}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Exportez en
+				CSV</a>
+		</div>
+	</div>
+</body>
+
+</html>

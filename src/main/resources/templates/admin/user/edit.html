@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" layout:decorate="~{admin/layouts/admin}">
+
+<head>
+	<title>Modification d'un utilisateur</title>
+	<style>
+		.fieldError {
+			color: red;
+		}
+	</style>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="container">
+			<h1 class="text-center">Modification d'un utilisateur</h1>
+
+			<form th:action="@{/admin/users/{id}/edit(id=${user.id})}" th:object="${user}" th:method="put"
+				class="row g-3 col-md-6 mx-auto">
+				<div class="mb-3">
+					<label for="login" class="form-label">Nom d'utilisateur:</label>
+					<input type="text" th:field="*{login}" class="form-control" id="login">
+					<p th:if="${#fields.hasErrors('login')}" th:errors="*{login}" th:errorclass="fieldError"></p>
+				</div>
+				<div class="mb-3">
+					<label for="firstname" class="form-label">Prénom:</label>
+					<input type="text" th:field="*{firstname}" class="form-control" id="firstname">
+					<p th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" th:errorclass="fieldError">
+					</p>
+				</div>
+				<div class="mb-3">
+					<label for="lastname" class="form-label">Nom:</label>
+					<input type="text" th:field="*{lastname}" class="form-control" id="lastname">
+					<p th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" th:errorclass="fieldError"></p>
+				</div>
+				<div class="mb-3">
+					<label for="email" class="form-label">Email:</label>
+					<input type="email" th:field="*{email}" class="form-control" id="email">
+					<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="fieldError"></p>
+				</div>
+				<div class="mb-3">
+					<label for="role" class="form-label">Rôle:</label>
+					<select class="form-select" th:field="*{roles}" id="role">
+						<option th:each="role : ${roles}" th:value="${role}" th:text="${role.role}"></option>
+					</select>
+					<p th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}" th:errorclass="fieldError"></p>
+				</div>
+				<div class="mb-3">
+					<label for="langue" class="form-label">Langue:</label>
+					<input type="text" th:field="*{langue}" class="form-control" id="langue">
+					<p th:if="${#fields.hasErrors('langue')}" th:errors="*{langue}" th:errorclass="fieldError"></p>
+				</div>
+
+				<div class="mb-3 text-center">
+					<button type="submit" th:text="Modifier" class="btn btn-primary">Modifier</button>
+					<button type="reset" th:text="Réinitialiser" class="btn btn-secondary">Réinitialiser</button>
+					<a th:href="@{/admin/users}" class="btn btn-danger">Annuler</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>

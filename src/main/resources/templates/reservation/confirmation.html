@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" layout:decorate="~{layouts/main}">
+
+<head>
+    <title>Confirmation</title>
+</head>
+
+<body>
+
+    <div layout:fragment="content">
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col-md-6 offset-md-3 text-center mb-5" style="border: 5px solid black;">
+                    <h2 class="text-center m-1">Résumé de votre réservation</h2>
+
+                    <div th:if="${representation != null}" class="text-center">
+
+                        <!-- Affichage de l'image du spectacle -->
+                        <img th:src="@{'/images/' + ${representation.show.posterUrl}}" alt="Poster du spectacle"
+                            class="img-fluid" width="150" />
+
+                    </div>
+                    <div>
+                        <strong>En date du :</strong>
+                        <span th:text="${#temporals.format(representation.when, 'd MMMM yyyy à HH:mm')}"></span>
+                        <p><strong>Titre de la pièce :</strong> <span th:text="${representation.show.title}"></span></p>
+
+                        <div th:if="${username != null}">
+                            <p><strong>Bonjour </strong> <span th:text="${username}"></span><strong>, heureux de vous voir</strong></p>
+                        </div>
+                        
+                        <!-- Ajout du prix unitaire -->
+                        <p><strong>Prix unitaire :</strong> <span th:text="${representation.show.price} + ' €'"></span></p>
+                        
+                        <p><strong>Nombre de places:</strong> 
+                            <select name="nbPlaces" id="nbPlaces" th:field="*{nbPlaces}">
+                                <option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}"
+                                        th:text="${i}" th:selected="${i == nbPlaces}">1</option>
+                            </select>
+                        </p>
+                        
+
+                        <form th:action="@{/choixPlaces}" method="post">
+                            <input type="hidden" name="representationWhen" th:value="${representation.when}"/>
+                            <input type="hidden" name="nbPlaces" th:value="${nbPlaces}"/>
+                            <button type="submit" class="btn btn-primary btn-sm ms-2">Continuer vers le choix des places</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript placé ici, avant la fermeture de la balise body -->
+    <script>
+        document.getElementById('nbPlaces').addEventListener('change', function() {
+            document.querySelector('input[name="nbPlaces"]').value = this.value;
+        });
+    </script>
+</body>
+
+</html>

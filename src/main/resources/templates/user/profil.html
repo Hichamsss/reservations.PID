@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" layout:decorate="~{layouts/main}"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<title>Mon Compte</title>
+	<style>
+		.img-fluid {
+			transition: transform 0.3s;
+		}
+
+		.img-fluid:hover {
+			transform: scale(1.1);
+		}
+
+		.img-border {
+			border: 5px solid rgb(255, 255, 255);
+			padding: 5px;
+			border-radius: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="container mt-3">
+			<div th:if="${user != null}">
+				<h2 th:text="#{profil.message} + ' ' + ${user.firstname} + ' ' + ${user.lastname}"></h2>
+				<h6 th:text="#{profil2.message}"></h6>
+				<div class="row mt-5">
+					<div class="text-center col-md-6 ">
+						<a th:href="@{reservations}">
+							<img src="/images/reservation.jpeg" class="img-fluid img-border h-75 w-75"
+								alt="Image Reservation">
+						</a>
+					</div>
+					<div class="text-center col-md-6">
+						<a>
+							<img src="/images/donneesPersonnelles.jpg" class="img-fluid img-border h-75 w-75"
+								alt="Image Données Personnelles">
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
