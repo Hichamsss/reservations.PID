@@ -22,11 +22,14 @@
 					<div class="tab-content" id="myTabContent">
 						<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
+<<<<<<< HEAD
 							<!-- Message de succès -->
 							<div th:if="${successMessage}" class="alert alert-success">
 								<p th:text="${successMessage}"></p>
 							</div>
 
+=======
+>>>>>>> a4916b51cec8277d27a15385f3e5254dca7fbca8
 							<form class="row register-form" th:object="${user}" th:action="@{/register}" method="post">
 								<div class="col-md-6">
 									<div class="form-group mb-4">
@@ -69,7 +72,13 @@
 								</div>
 								<button type="submit" class="text-center btnRegister">Register</button>
 							</form>
+<<<<<<< HEAD
 							
+=======
+							<div id="confirmationMessage" style="display: none;">
+								<p class="text-success">Votre inscription a été effectuée avec succès !</p>
+							</div>
+>>>>>>> a4916b51cec8277d27a15385f3e5254dca7fbca8
 						</div>
 
 					</div>
@@ -93,7 +102,28 @@
 				return true;
 			}
 		}
+<<<<<<< HEAD
 	</script>
 </body>
 
 </html>
+=======
+
+		document.addEventListener("DOMContentLoaded", function () {
+			var form = document.querySelector('.register-form');
+			var confirmationMessage = document.getElementById("confirmationMessage");
+
+			form.addEventListener('submit', function (event) {
+				if (!validatePassword()) {
+					event.preventDefault();
+				} else {
+					// Si la validation réussit, affiche le message de confirmation
+					confirmationMessage.style.display = "block";
+				}
+			});
+		});
+	</script>
+</body>
+
+</html>
+>>>>>>> a4916b51cec8277d27a15385f3e5254dca7fbca8

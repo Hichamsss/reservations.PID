@@ -149,12 +149,10 @@ public class AdminController {
         if (existing != null) {
             // Supprimer les rôles associés à l'utilisateur avant de le supprimer
             existing.getRoles().forEach(existing::removeRole);
-            userService.deleteUser(String.valueOf(id)); // Conversion de Long en String
         }
 
         return "redirect:/admin/users";
     }
-
 
     //------------- SHOW -------------//
     @GetMapping("/shows")
