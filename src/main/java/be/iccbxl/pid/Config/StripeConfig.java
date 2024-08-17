@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class StripeConfig {
 	
-    private String apiKey = "sk_test_51OL1SZEE3iAsaZHF2cg38GvmDIR0dFLMzxbt5SZX3ejfFxqK7EgE4dFYkgDLcjGq4QVZeFVZ4KjFEXTnHA3axxLZ005TkzrS3R";
+    private String apiKey = "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";
 
     public String getApiKey() {
         return apiKey;

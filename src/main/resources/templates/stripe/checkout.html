@@ -1,27 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
 <head>
-	<meta charset="utf-8" />
-	<title>Accept a payment</title>
-	<meta name="description" content="A demo of a payment on Stripe" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="/css/checkout.css" />
-	<script src="https://js.stripe.com/v3/"></script>
-	<script src="/js/checkout.js" integrity="" crossorigin="anonymous" defer></script>
+    <meta charset="utf-8" />
+    <title>Paiement Stripe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://js.stripe.com/v3/"></script>
+    <script th:inline="javascript">
+        var stripe = Stripe('pk_live_51Po75CRoxzfYVjAbLy3e6yMxJfWgTJcWKsX70RLVggMdqzMbtvhGaPq1puB022GZnthQdomn4Nsxh5gbAFsMpQQP00RgsygIAl'); // Remplacez par votre clé publique Stripe
+        var sessionId = /*[[${sessionId}]]*/ ''; // Ceci injecte le sessionId depuis le modèle Thymeleaf
+
+        stripe.redirectToCheckout({
+            sessionId: sessionId
+        }).then(function (result) {
+            if (result.error) {
+                window.location.href = "/stripe/error";
+            }
+        });
+    </script>
 </head>
-<script th:inline="javascript">
-
-	var total = /*[[${total}]]*/ null;
-
-</script>
-
 <body>
-	
-	<!-- Display a payment form -->
-	<div id="checkout">
-		<!-- Checkout will insert the payment form here -->
-	</div>
+    <div id="checkout">
+        <p>Redirection vers Stripe pour le paiement...</p>
+    </div>
 </body>
-
 </html>

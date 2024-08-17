@@ -74,23 +74,6 @@
             color: #333;
         }
     </style>
-    <script>
-        function togglePaymentDetails(method) {
-            const cardDetails = document.getElementById('card-details');
-            const qrCode = document.getElementById('qr-code');
-
-            if (method === 'online') {
-                cardDetails.style.display = 'block';
-                qrCode.style.display = 'none';
-            } else if (method === 'qr') {
-                cardDetails.style.display = 'none';
-                qrCode.style.display = 'block';
-            } else {
-                cardDetails.style.display = 'none';
-                qrCode.style.display = 'none';
-            }
-        }
-    </script>
 </head>
 <body>
     <div layout:fragment="content">
@@ -107,55 +90,12 @@
                 <span th:text="${totalPrice} + ' €'"></span>
             </p>
 
-            <form th:action="@{/panier/processPayment}" method="post">
-                <!-- Sélection du mode de paiement -->
-                <div class="form-group payment-method">
-                    <label>Mode de paiement :</label><br>
-                    <div>
-                        <input type="radio" id="bank" name="paymentMethod" value="bank" onclick="togglePaymentDetails('bank')" required>
-                        <label for="bank">Virement bancaire</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="online" name="paymentMethod" value="online" onclick="togglePaymentDetails('online')">
-                        <label for="online">Paiement en ligne</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="qr" name="paymentMethod" value="qr" onclick="togglePaymentDetails('qr')">
-                        <label for="qr">Scanner le QR-Code</label>
-                    </div>
-                </div>
-
-                <!-- Détails pour le paiement en ligne -->
-                <div id="card-details" style="display:none;">
-                    <div class="form-group">
-                        <label for="cardNumber">Numéro de carte</label>
-                        <input type="text" class="form-control" id="cardNumber" name="cardNumber">
-                    </div>
-                    <div class="form-group">
-                        <label for="expiryDate">Date d'expiration</label>
-                        <input type="text" class="form-control" id="expiryDate" name="expiryDate">
-                    </div>
-                    <div class="form-group">
-                        <label for="cvv">CVV</label>
-                        <input type="text" class="form-control" id="cvv" name="cvv">
-                    </div>
-                </div>
-
-                <!-- QR Code pour le paiement -->
-                <div id="qr-code" class="qr-code">
-                    <img src="/images/qr-code.png" alt="QR Code de paiement">
-                    <p>Scannez ce code pour effectuer votre paiement.</p>
-                    <p>Compte IBAN: BE6700193257858*</p>
-                </div>
-
-                <!-- Instructions pour le virement bancaire -->
-                <div id="bank-details" class="mt-3" style="display:none;">
-                    <p>Effectuez un virement bancaire sur le compte suivant :</p>
-                    <p><strong>Compte IBAN: BE6700193257858*</strong></p>
-                </div>
-
+            <!-- Formulaire pour le paiement -->
+            <form th:action="@{/payment/create-checkout-session}" method="post">
+                <input type="hidden" name="amount" th:value="${totalPrice}" />
                 <button type="submit" class="btn btn-primary">Procéder au paiement</button>
             </form>
+                
         </div>
     </div>
 </body>
