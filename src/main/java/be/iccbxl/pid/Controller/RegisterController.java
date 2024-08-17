@@ -35,12 +35,15 @@ public class RegisterController {
     @PostMapping("/register")
     public String processRegistrationForm(
             @RequestParam String password, 
+            @RequestParam String confirmPassword,
             @ModelAttribute @Valid User user, 
             BindingResult result, 
             Model model,
             RedirectAttributes redirectAttributes) {
 
-        if (password == null || password.isEmpty()) {
+        // Vérification des mots de passe
+        if (!password.equals(confirmPassword)) {
+            model.addAttribute("errorPassword", "Les mots de passe ne correspondent pas.");
             return "register/registration";
         }
 
@@ -49,6 +52,7 @@ public class RegisterController {
             return "register/registration";
         }
 
+        // Vérification de l'existence de l'email
         if (userService.existsByEmail(user.getEmail())) {
             model.addAttribute("errorEmail", "Cet email est déjà utilisé. Veuillez en choisir un autre.");
             return "register/registration";
@@ -64,7 +68,7 @@ public class RegisterController {
             String confirmationSubject = "Confirmation d'inscription";
 
             String sb = "Bienvenue " + user.getLogin() + "\n" +
-                    "Merci de vous être inscrit sur ShopUpNow.";
+                    "Merci pour votre inscription.";
 
             // Envoyer l'e-mail de confirmation
             emailService.sendConfirmationEmail(user.getEmail(), confirmationSubject, sb);

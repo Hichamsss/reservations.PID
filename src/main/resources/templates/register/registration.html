@@ -9,7 +9,7 @@
 <body>
 	<div layout:fragment="content">
 
-		<div class="container register ">
+		<div class="container register">
 			<div class="row">
 				<div class="col-md-3 register-left">
 					<img src="/images/billet.jpg" alt="" />
@@ -22,14 +22,21 @@
 					<div class="tab-content" id="myTabContent">
 						<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
-<<<<<<< HEAD
 							<!-- Message de succès -->
 							<div th:if="${successMessage}" class="alert alert-success">
 								<p th:text="${successMessage}"></p>
 							</div>
 
-=======
->>>>>>> a4916b51cec8277d27a15385f3e5254dca7fbca8
+							<!-- Message d'erreur pour les mots de passe non concordants -->
+							<div th:if="${errorPassword}" class="alert alert-danger">
+								<p th:text="${errorPassword}"></p>
+							</div>
+
+							<!-- Message d'erreur pour l'email déjà utilisé -->
+							<div th:if="${errorEmail}" class="alert alert-danger">
+								<p th:text="${errorEmail}"></p>
+							</div>
+
 							<form class="row register-form" th:object="${user}" th:action="@{/register}" method="post">
 								<div class="col-md-6">
 									<div class="form-group mb-4">
@@ -46,6 +53,7 @@
 									<div class="form-group mb-4">
 										<input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password *"
 											   onkeyup="validatePassword()">
+										<p id="passwordHelpBlock" class="error-text text-danger"></p>
 									</div>
 								</div>
 								<div class="col-md-6">
@@ -59,7 +67,6 @@
 										<input type="email" class="form-control" id="email" th:field="*{email}" placeholder="Votre Email *">
 										<!-- Pour afficher les erreurs spécifiques au champ email -->
 										<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-text text-danger"></p>
-										<p th:if="${errorEmail}" th:text="${errorEmail}" class="error-text text-danger"></p>
 									</div>
 								</div>
 								<div class="form-group mb-3">
@@ -72,13 +79,10 @@
 								</div>
 								<button type="submit" class="text-center btnRegister">Register</button>
 							</form>
-<<<<<<< HEAD
-							
-=======
+
 							<div id="confirmationMessage" style="display: none;">
 								<p class="text-success">Votre inscription a été effectuée avec succès !</p>
 							</div>
->>>>>>> a4916b51cec8277d27a15385f3e5254dca7fbca8
 						</div>
 
 					</div>
@@ -102,12 +106,6 @@
 				return true;
 			}
 		}
-<<<<<<< HEAD
-	</script>
-</body>
-
-</html>
-=======
 
 		document.addEventListener("DOMContentLoaded", function () {
 			var form = document.querySelector('.register-form');
@@ -126,4 +124,3 @@
 </body>
 
 </html>
->>>>>>> a4916b51cec8277d27a15385f3e5254dca7fbca8

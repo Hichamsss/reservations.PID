@@ -105,6 +105,35 @@
             }
         });
     </script>
+
+    <!-- Script de validation des mots de passe -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector('.register-form');
+            const passwordHelpBlock = document.getElementById("passwordHelpBlock");
+
+            function validatePassword() {
+                const password = document.getElementById("password").value;
+                const confirmPassword = document.getElementById("confirmPassword").value;
+
+                if (password !== confirmPassword) {
+                    passwordHelpBlock.textContent = "Les mots de passe ne correspondent pas.";
+                    return false;
+                } else {
+                    passwordHelpBlock.textContent = "";
+                    return true;
+                }
+            }
+
+            if (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!validatePassword()) {
+                        event.preventDefault();
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
