@@ -3,66 +3,165 @@
  layout:decorate="~{layouts/main}">
 <head>
     <title>Fiche d'un spectacle</title>
+    <!-- Inclusion de Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #121212; /* Fond d'écran foncé */
+            color: #f8f9fa; /* Texte en blanc ou couleur claire */
+        }
+        .image-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .image-container img, .image-container canvas {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .content-section {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        .content-section h1 {
+            text-align: center; /* Centre le titre horizontalement */
+            margin-bottom: 30px;
+            padding: 0; /* Supprime tout padding ajouté précédemment */
+            border: none; /* Assure qu'il n'y a pas de bordure */
+            box-shadow: none; /* Supprime toute ombre */
+        }
+        .content-section h2 {
+            margin-top: 30px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            color: #ffffff; /* Titre en blanc */
+        }
+        .artist-info p {
+            margin-bottom: 10px;
+        }
+        .nav-link {
+            color: #ffffff; /* Lien en blanc */
+            text-decoration: underline;
+        }
+        .nav-link:hover {
+            text-decoration: none;
+            color: #d1d1d1; /* Couleur légèrement différente au survol */
+        }
+        .list-group-item {
+            background-color: #343a40; /* Fond des éléments de liste en gris foncé */
+            color: #f8f9fa; /* Texte en blanc ou couleur claire */
+        }
+        .list-group-item:hover {
+            background-color: #495057; /* Couleur au survol */
+        }
+        .non-reservable {
+            color: #ff4d4d; /* Couleur rouge pour "Non Réservable" */
+            font-weight: bold;
+        }
+        .reservable {
+            color: #28a745; /* Couleur verte pour "Réservable" */
+            font-weight: bold;
+        }
+        .striped-bar {
+            background: linear-gradient(
+                to right, 
+                #6c757d,  /* Gris foncé au début */
+                #d3d3d3,  /* Gris clair au centre */
+                #6c757d   /* Gris foncé à la fin */
+            );
+            padding: 10px;
+            border-radius: 5px;
+            color: #f8f9fa; /* Assurez-vous que le texte est bien lisible sur le fond rayé */
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container content-section">
         <div layout:fragment="content">
-            <h1 th:text="${show.title}">Ayiti</h1>
+            <h1 class="display-4" th:text="${show.title}">Ayiti</h1>
 
-            <p th:if="${show.posterUrl}">
-                <img th:src="@{'/images/' + ${show.posterUrl}}" th:alt="${show.title}" src="/images/default.jpg" alt="" width="300">
-            </p>
-            <canvas th:unless="${show.posterUrl}" width="200" height="100" style="border:1px solid #000000;"></canvas>
-            
-            <p th:if="${show.location}">
-                <strong>Lieu de création:</strong> <span th:text="${show.location.designation}">Art Center</span>
-            </p>
+            <div class="image-container">
+                <p th:if="${show.posterUrl}">
+                    <img th:src="@{'/images/' + ${show.posterUrl}}" th:alt="${show.title}" src="/images/default.jpg" alt="" width="300">
+                </p>
+                <canvas th:unless="${show.posterUrl}" width="200" height="100"></canvas>
+            </div>
 
-            <p>
-                <strong>Prix:</strong> <span th:text="${show.price} + ' €'">9.99 €</span>
-            </p>
+            <div class="text-center">
+                <p th:if="${show.location}">
+                    <strong>Lieu de création:</strong> <span th:text="${show.location.designation}">Art Center</span>
+                </p>
 
-            <p th:if="${show.bookable}"><em>Réservable</em></p>
-            <p th:unless="${show.bookable}"><em>Non réservable</em></p>
+                <p th:if="${show.description}" class="lead">
+                    <strong>Description:</strong> <span th:text="${show.description}">Description du spectacle.</span>
+                </p>
+
+                <p>
+                    <strong>Prix:</strong> 
+                    <span th:text="${show.price} + ' € (Étudiant/Senior: '"></span>
+                    <span th:text="${#numbers.formatDecimal(show.price * 0.7, 1, 2)}"></span>
+                    <span> €)</span>
+                </p>
+
+                <!-- Affichage de "Non réservable" si aucune représentation ou si show.bookable est false -->
+                <p th:if="${#lists.size(show.representations) == 0 or !show.bookable}">
+                    <em class="non-reservable">Temporairement indisponible</em>
+                </p>
+                <p th:if="${#lists.size(show.representations) > 0 and show.bookable}">
+                    <em class="reservable">Réservable</em>
+                </p>
+            </div>
 
             <h2>Liste des représentations</h2>
-            <ul th:if="${#lists.size(show.representations) >= 1}">
-		    <li th:each="representation : ${show.representations}">
-		        <span th:text="${#temporals.format(representation.when, 'dd-MM-yyyy HH:mm')}">12-10-2012 13:30</span>
-		        <form th:action="@{/confirmReservation}" method="post">
-		            <input type="hidden" name="representationWhen" th:value="${representation.when}"/>
-		            <input type="hidden" name="nbPlaces" value="1"/>
-		            <button type="submit" class="btn btn-primary btn-sm ms-2">Réserver</button>
-		        </form>
-		    </li>
-			</ul>
-
-			</ul>
+            <ul class="list-group" th:if="${#lists.size(show.representations) >= 1}">
+                <li class="list-group-item d-flex justify-content-between align-items-center striped-bar" th:each="representation : ${show.representations}">
+                    <span th:text="${#temporals.format(representation.when, 'dd-MM-yyyy HH:mm')}">12-10-2012 13:30</span>
+                    <form th:action="@{/confirmReservation}" method="post" class="form-inline">
+                        <input type="hidden" name="representationWhen" th:value="${representation.when}"/>
+                        <input type="hidden" name="nbPlaces" value="1"/>
+                        <button type="submit" class="btn btn-primary btn-sm">Réserver</button>
+                    </form>
+                </li>
+            </ul>
 
             <p th:if="${#lists.size(show.representations) == 0}">Aucune représentation</p>
 
             <h2>Liste des artistes</h2>
-            <p>
-                <strong>Auteur:</strong>
-                <span th:each="auteur, iter : ${collaborateurs['auteur']}" th:text="${auteur.firstname} + ' ' + ${auteur.lastname} + (${iter.count} == ${iter.size} - 1 ? ' et ' : (${iter.last} ? '' : ', '))">
-                    Firstname Lastname
-                </span>
-            </p>
-            <p>
-                <strong>Metteur en scène:</strong>
-                <span th:each="scenographe, iter : ${collaborateurs['scénographe']}" th:text="${scenographe.firstname} + ' ' + ${scenographe.lastname} + (${iter.count} == ${iter.size} - 1 ? ' et ' : (${iter.last} ? '' : ', '))">
-                    Firstname Lastname
-                </span>
-            </p>
-            <p>
-                <strong>Distribution:</strong>
-                <span th:each="comedien, iter : ${collaborateurs['comédien']}" th:text="${comedien.firstname} + ' ' + ${comedien.lastname} + (${iter.count} == ${iter.size} - 1 ? ' et ' : (${iter.last} ? '' : ', '))">
-                    Firstname Lastname
-                </span>
-            </p>
+            <div class="artist-info">
+                <p>
+                    <strong>Auteur:</strong>
+                    <span th:each="auteur, iter : ${collaborateurs['auteur']}" th:text="${auteur.firstname} + ' ' + ${auteur.lastname} + (${iter.count} == ${iter.size} - 1 ? ' et ' : (${iter.last} ? '' : ', '))">
+                        Firstname Lastname
+                    </span>
+                </p>
+                <p>
+                    <strong>Metteur en scène:</strong>
+                    <span th:each="scenographe, iter : ${collaborateurs['scénographe']}" th:text="${scenographe.firstname} + ' ' + ${scenographe.lastname} + (${iter.count} == ${iter.size} - 1 ? ' et ' : (${iter.last} ? '' : ', '))">
+                        Firstname Lastname
+                    </span>
+                </p>
+                <p>
+                    <strong>Distribution:</strong>
+                    <span th:each="comedien, iter : ${collaborateurs['comédien']}" th:text="${comedien.firstname} + ' ' + ${comedien.lastname} + (${iter.count} == ${iter.size} - 1 ? ' et ' : (${iter.last} ? '' : ', '))">
+                        Firstname Lastname
+                    </span>
+                </p>
+            </div>
 
-            <nav><a th:href="@{/shows}">Retour à l'index</a></nav>
+            <nav class="mt-4">
+                <a th:href="@{/shows}" class="nav-link">
+				                <a th:href="@{/shows}" class="nav-link">Retour à l'index</a>
+            </nav>
         </div>
     </div>
+
+    <!-- Inclusion de Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+				

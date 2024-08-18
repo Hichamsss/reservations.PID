@@ -3,6 +3,10 @@
 <head>
     <title>Choix des places</title>
     <style>
+        h1 {
+            text-align: center; /* Centre le titre principal */
+        }
+
         .seat {
             width: 30px;
             height: 30px;
@@ -108,6 +112,11 @@
                     <select name="nbReducedPlaces" id="nbReducedPlaces">
                         <option th:each="i : ${#numbers.sequence(0, 10)}" th:value="${i}" th:text="${i}">0</option>
                     </select>
+                    <p>Veuillez noter qu'une vérification de votre statut d'étudiant ou de senior sera effectuée à l'accueil lors de votre arrivée. Merci de bien vouloir présenter une pièce justificative valide (carte d'étudiant, pièce d'identité, etc.) pour prouver votre éligibilité au tarif réduit.
+
+En cas d'impossibilité de fournir une preuve valable, vous serez tenu d'acheter un nouveau billet au tarif plein.
+
+Nous vous remercions de votre compréhension et coopération.</p>
                 </div>
 
                 <!-- Bouton pour soumettre le formulaire -->

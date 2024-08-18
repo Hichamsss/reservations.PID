@@ -120,6 +120,16 @@
     <div layout:fragment="content">
         <div class="container mt-5">
 
+            <!-- Messages de succès ou d'erreur -->
+            <div class="mb-4">
+                <div th:if="${successMessage}" class="alert alert-success text-center" role="alert">
+                    <p th:text="${successMessage}"></p>
+                </div>
+                <div th:if="${errorMessage}" class="alert alert-danger text-center" role="alert">
+                    <p th:text="${errorMessage}"></p>
+                </div>
+            </div>
+
             <!-- Section avec le message -->
             <div class="text-center mb-5">
                 <h2 class="section-title text-primary-custom" th:text="#{home.message}">Nos nouveautés</h2>
@@ -188,7 +198,7 @@
                             <a href="#" class="btn btn-primary-custom" onclick="toggleInfo(event, this)">En savoir plus</a>
                             <div class="info-bubble">
                                 <p>Histoire d'amour interdite entre deux jeunes amants issus de familles rivales à Vérone.
-                                Leur passion dévorante les pousse à défier les normes, mais leur destin tragique est scellé par un enchaînement de malentendus et de conflits.</p>
+                                    Leur passion dévorante les pousse à défier les normes, mais leur destin tragique est scellé par un enchaînement de malentendus et de conflits.</p>
                             </div>
                         </div>
                     </div>
@@ -202,8 +212,8 @@
                             <p class="card-text">Un spectacle époustouflant avec des performances inoubliables.</p>
                             <a href="#" class="btn btn-primary-custom" onclick="toggleInfo(event, this)">En savoir plus</a>
                             <div class="info-bubble">
-                                <p>les aventures fantastiques d'Alice, une jeune fille curieuse, 
-                                qui tombe dans un terrier de lapin et découvre un monde étrange peuplé de personnages excentriques et merveilleux.</p>
+                                <p>Les aventures fantastiques d'Alice, une jeune fille curieuse, 
+                                    qui tombe dans un terrier de lapin et découvre un monde étrange peuplé de personnages excentriques et merveilleux.</p>
                             </div>
                         </div>
                     </div>
@@ -217,9 +227,9 @@
                             <p class="card-text">Plongez dans un univers théâtral unique en son genre.</p>
                             <a href="#" class="btn btn-primary-custom" onclick="toggleInfo(event, this)">En savoir plus</a>
                             <div class="info-bubble">
-                                <p>l'histoire de Cyrano, un poète et épéiste au grand cœur, 
-                                connu pour son nez proéminent, qui aide secrètement le beau Christian à courtiser la femme qu'il aime,
-                                Roxane, malgré ses propres sentiments pour elle.</p>
+                                <p>L'histoire de Cyrano, un poète et épéiste au grand cœur, 
+                                    connu pour son nez proéminent, qui aide secrètement le beau Christian à courtiser la femme qu'il aime,
+                                    Roxane, malgré ses propres sentiments pour elle.</p>
                             </div>
                         </div>
                     </div>
