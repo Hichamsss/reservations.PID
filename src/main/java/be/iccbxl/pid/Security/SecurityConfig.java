@@ -36,9 +36,9 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> {
                 auth.requestMatchers("/user/**").hasRole("member");
                 auth.requestMatchers("/css/**", "/js/**", "/images/**", "/change-lang/**").permitAll();
-                auth.requestMatchers("/login", "/register", "/admin/**", "/exportCSV", "rss/shows",
+                auth.requestMatchers("/login", "/register", "/admin/**", "/exportCSV", "/rss/shows",
                         "/confirmationReservation", "/create-payment-intent",
-                        "/stripe/**", "/forgot-password").permitAll();
+                        "/stripe/**", "/forgot-password", "/shows-rss").permitAll(); // Ajout de /shows-rss ici
                 auth.anyRequest().authenticated();
             })
             .formLogin(form -> {
