@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Merci pour votre réservation</title>
-    <link rel="stylesheet" href="/css/checkout.css">
+    <link rel="stylesheet" href="/css/success.css">
 </head>
 <body>
-    <section id="success">
-        <p>
-            Nous vous remercions de votre réservation ! Un email de confirmation vous a été envoyé.
-        </p>
-        <a th:href="@{/home}">Retour vers l'accueil</a>
-    </section>
+    <div class="confirmation-container">
+        <h1>Merci pour votre réservation !</h1>
+        <p>Votre paiement a été accepté. Un email de confirmation vous a été envoyé.</p>
+        <a href="/home" class="button">Retour à l'accueil</a>
+    </div>
 </body>
 </html>
