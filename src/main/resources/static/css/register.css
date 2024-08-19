@@ -1,0 +1,67 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+
+.register {
+    background: #f8f9fa;
+    margin-top: 3%;
+    padding: 3%;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px #000;
+}
+
+.register-left {
+    text-align: center;
+    color: #fff;
+    margin-top: 4%;
+}
+
+.register-left img {
+    margin-top: 15%;
+    margin-bottom: 5%;
+    width: 25%;
+    -webkit-animation: mover 1s infinite alternate;
+    animation: mover 1s infinite alternate;
+}
+
+.register-right {
+    padding: 20px;
+    background: #f2f2f2;
+    border-radius: 10px;
+    position: relative;
+}
+
+.register-right .inscription-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 10px 0px #000;
+}
+
+.register-heading {
+    text-align: center;
+    margin-top: 8%;
+    margin-bottom: -15px;
+    color: #495057;
+}
+
+.btnRegister {
+    float: right;
+    margin-top: 10%;
+    border: none;
+    border-radius: 1.5rem;
+    padding: 1.5%;
+    background: #0062cc;
+    color: #fff;
+    font-weight: 600;
+    width: 100%;
+    cursor: pointer;
+}
+
+.btnRegister:hover {
+    background-color: #0056b3;
+}

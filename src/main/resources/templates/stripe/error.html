@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Erreur de paiement</title>
     <link rel="stylesheet" href="/css/checkout.css">
 </head>
 <body>
-    <section id="error">
-        <p>
+    <section id="error-container">
+        <p class="error-message">
             Une erreur est survenue lors du traitement de votre paiement. Veuillez réessayer.
         </p>
-        <a th:href="@{/panier/payement}">Retourner à la page de paiement</a>
+        <a href="/panier/payement" class="button">Retourner à la page de paiement</a>
     </section>
 </body>
 </html>

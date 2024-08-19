@@ -5,19 +5,10 @@ import jakarta.validation.constraints.*;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-
-import org.hibernate.validator.constraints.UniqueElements;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Data
 @Entity
@@ -38,12 +29,6 @@ public class User {
     @Pattern(regexp = "^(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?=\\S+$).*$", message = "Le mot de passe doit contenir un caractère spécial et une majuscule minimum")
     private String password;
 
-    /*@Pattern(regexp = "^(?=.*[A-Z])(?=.*[!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~])(?=\\S+$).*$", message = "Le mot de passe doit contenir un caractère spécial et une majuscule minimum")
-    private String password;
-*/
-
-
-
     private String firstname;
     private String lastname;
 
@@ -55,7 +40,6 @@ public class User {
     private String langue;
     private LocalDateTime created_at;
 
-    
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
@@ -66,7 +50,6 @@ public class User {
     @ManyToMany(mappedBy = "users")
     private List<Representation> representations = new ArrayList<>();
 
-	
     public User(String login, String password, String firstname, String lastname, String email, String langue) {
         this.login = login;
         this.password = password;
@@ -115,9 +98,6 @@ public class User {
     }
 
     public static User createInstance() {
-    	return new User();
+        return new User();
     }
-    
-
-
 }

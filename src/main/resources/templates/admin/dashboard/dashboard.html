@@ -4,7 +4,8 @@
 
 <head>
     <title>Dashboard</title>
-    <!-- Ajoutez des liens vers les fichiers CSS spécifiques si nécessaire -->
+    <!-- Lien vers le fichier CSS admin.css -->
+    <link rel="stylesheet" href="/css/admin.css">
 </head>
 
 <body>
@@ -14,25 +15,25 @@
         <div class="row">
             <div class="col-md-3 offset-md-1">
                 <div class="card bloc1">
-                    <div class="card-body">
+                    <div class="card-body text-center">
                         <h2 class="card-number fs-1" th:text="${totalUsers}">0</h2>
-                        <h3 class="card-title mb-2 text-end fs-2">Utilisateurs</h3>
+                        <h3 class="card-title fs-4">Utilisateurs</h3>
                     </div>
                 </div>
             </div>
             <div class="col-md-3 offset-md-1">
                 <div class="card bloc2">
-                    <div class="card-body">
+                    <div class="card-body text-center">
                         <h2 class="card-number fs-1" th:text="${totalShows}">0</h2>
-                        <h3 class="card-title mb-2 text-end fs-2">Spectacles</h3>
+                        <h3 class="card-title fs-4">Spectacles</h3>
                     </div>
                 </div>
             </div>
             <div class="col-md-3 offset-md-1">
                 <div class="card bloc3">
-                    <div class="card-body">
+                    <div class="card-body text-center">
                         <h2 class="card-number fs-1" th:text="${totalRepresentations}">0</h2>
-                        <h3 class="card-title mb-2 text-end fs-2">Représentations</h3>
+                        <h3 class="card-title fs-4">Représentations</h3>
                     </div>
                 </div>
             </div>
@@ -40,6 +41,8 @@
     </div>
 </div>
 
-</body>
+<!-- Inclusion de FontAwesome pour les icônes si vous en avez besoin -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
+</body>
 </html>

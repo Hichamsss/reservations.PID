@@ -65,9 +65,11 @@ public class AdminController {
 
     @GetMapping("/add-user")
     public String createUser(Model model) {
-        User user = User.createInstance();
+        User user = User.createInstance(); // Assurez-vous que cette méthode existe dans votre classe User
 
+        List<Role> roles = roleService.getAll(); // Récupérer tous les rôles disponibles
         model.addAttribute("user", user);
+        model.addAttribute("roles", roles);
 
         return "admin/user/add-user";
     }
@@ -76,11 +78,10 @@ public class AdminController {
     public String store(@Valid @ModelAttribute("user") User user, BindingResult bindingResult,
                         @RequestParam(name = "roles", required = false) List<String> roleIds, Model model) {
         if (bindingResult.hasErrors()) {
+            List<Role> roles = roleService.getAll(); // Récupérer les rôles en cas d'erreur
+            model.addAttribute("roles", roles);
             return "admin/user/add-user";
         }
-
-        // Utiliser la méthode addUser du service pour ajouter un utilisateur avec mot de passe crypté
-        userService.addUser(user);
 
         // Ajouter les rôles à l'utilisateur nouvellement créé
         if (roleIds != null) {
@@ -89,13 +90,13 @@ public class AdminController {
                 if (role != null) {
                     user.addRole(role);
                 } else {
-                    // Gérer le cas où le rôle n'est pas trouvé
                     System.out.println("Le rôle avec l'ID " + roleId + " n'a pas été trouvé.");
                 }
             }
         }
 
-        userService.updateUser(String.valueOf(user.getId()), user);
+        // Utiliser la méthode addUser du service pour ajouter un utilisateur avec mot de passe crypté
+        userService.addUser(user);
 
         return "redirect:/admin/users";
     }
@@ -125,6 +126,8 @@ public class AdminController {
                              @PathVariable("id") long id, Model model) {
 
         if (bindingResult.hasErrors()) {
+            List<Role> roles = roleService.getAll(); // Récupérer les rôles en cas d'erreur
+            model.addAttribute("roles", roles);
             return "/admin/user/edit";
         }
 
@@ -135,9 +138,12 @@ public class AdminController {
         }
 
         user.setId(id);
-        userService.updateUser(String.valueOf(user.getId()), user);
 
-        model.addAttribute("user", user);
+        // Supprimer les rôles existants et ajouter les nouveaux rôles
+        existing.getRoles().clear();
+        user.getRoles().forEach(existing::addRole);
+
+        userService.updateUser(String.valueOf(user.getId()), user);
 
         return "redirect:/admin/users";
     }
@@ -149,10 +155,14 @@ public class AdminController {
         if (existing != null) {
             // Supprimer les rôles associés à l'utilisateur avant de le supprimer
             existing.getRoles().forEach(existing::removeRole);
+
+            // Supprimer l'utilisateur
+            userService.deleteUserById(id);
         }
 
         return "redirect:/admin/users";
     }
+
 
     //------------- SHOW -------------//
     @GetMapping("/shows")
