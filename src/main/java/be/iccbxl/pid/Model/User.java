@@ -5,6 +5,8 @@ import jakarta.validation.constraints.*;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -45,9 +47,11 @@ public class User {
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ToString.Exclude // Exclure la collection roles de la méthode toString pour éviter la récursion
     private List<Role> roles = new ArrayList<>();
 
     @ManyToMany(mappedBy = "users")
+    @ToString.Exclude // Exclure la collection representations de la méthode toString pour éviter la récursion
     private List<Representation> representations = new ArrayList<>();
 
     public User(String login, String password, String firstname, String lastname, String email, String langue) {

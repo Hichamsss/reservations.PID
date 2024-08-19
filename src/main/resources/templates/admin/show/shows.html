@@ -17,12 +17,11 @@
 			<table id="shows" class="row-border" style="width:100%">
 				<thead>
 					<tr style="text-align: center;">
-						<th class="col-2"></th>
+						<th class="col-2">Image du spectacle</th> <!-- Ajout de l'intitulé pour l'image -->
 						<th class="col-1">Titre</th>
-						<th class="col-3">Descritpion</th>
-						<th class="col 1">Reservable</th>
-						<th class="col-2">Artists</th>
-
+						<th class="col-3">Description</th>
+						<th class="col-1">Réservable</th>
+						<th class="col-2">Artistes</th>
 						<th class="col-1">Prix</th>
 						<th class="col-1">Actions</th>
 					</tr>
@@ -30,8 +29,8 @@
 				<tbody>
 					<tr th:unless="${#lists.isEmpty(shows)}" th:each="show : ${shows}">
 						<td>
-							<img th:src="@{'/images/' + ${show.posterUrl}}" class="card-img-top" alt="..."
-								style="max-height: 100px; max-width: 100px;">
+							<img th:src="@{'/images/' + ${show.posterUrl}}" class="card-img-top" alt="Affiche du spectacle"
+								style="max-height: 100px; max-width: 100px;"> <!-- Affichage de l'image du spectacle -->
 						</td>
 						<td>
 							<span th:text="${show.title}"></span>
@@ -39,7 +38,6 @@
 						<td>
 							<span th:text="${show.description}"></span>
 						</td>
-
 						<td>
 							<span th:if="${show.bookable}">Oui</span>
 							<span th:unless="${show.bookable}">Non</span>
@@ -52,19 +50,18 @@
 							</span>
 							<span th:if="${#lists.isEmpty(show.artistTypes)}">Aucun artiste associé</span>
 						</td>
-
 						<td>
 							<span th:text="${show.price} + ' €'"></span>
 						</td>
 						<td>
 							<div class="d-flex gap-2">
-								<a th:href="@{/admin/{id}/edit(id=${show.id})}" class="btn btn-outline-primary">
+								<a th:href="@{/admin/shows/{id}/edit(id=${show.id})}" class="btn btn-outline-primary">
 									<i class="bi bi-pencil-fill"></i>
 								</a>
 
 								<form th:id="|deleteForm-${show.id}|" th:action="@{/admin/shows/{id}(id=${show.id})}"
 									th:method="delete">
-									<a href="#" class="btn btn-outline-danger" th:onclick="|if(confirm('Confirm delete show #${show.id}'))
+									<a href="#" class="btn btn-outline-danger" th:onclick="|if(confirm('Confirmez-vous la suppression du spectacle #${show.id}'))
 				                    document.getElementById('deleteForm-${show.id}').submit();
 				                    return false;|">
 										<i class="bi bi-trash3-fill"></i>
@@ -72,13 +69,12 @@
 								</form>
 							</div>
 						</td>
-
 					</tr>
 				</tbody>
 			</table>
 		</div>
-		<div class="text-end  m-3">
-			<a th:href="@{/exportCSV}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Exportez en
+		<div class="text-end m-3">
+			<a th:href="@{/exportCSV}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Exporter en
 				CSV</a>
 		</div>
 	</div>

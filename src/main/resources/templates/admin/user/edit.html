@@ -3,11 +3,7 @@
 
 <head>
     <title>Modification d'un utilisateur</title>
-    <style>
-        .fieldError {
-            color: red;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/edit.css}">
 </head>
 
 <body>
@@ -20,22 +16,22 @@
                 <input type="hidden" name="_method" value="put"/>
                 <div class="mb-3">
                     <label for="login" class="form-label">Nom d'utilisateur:</label>
-                    <input type="text" th:field="*{login}" class="form-control" id="login">
+                    <input type="text" th:field="*{login}" class="form-control" id="login" placeholder="Entrez le nom d'utilisateur">
                     <p th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="fieldError"></p>
                 </div>
                 <div class="mb-3">
                     <label for="firstname" class="form-label">Prénom:</label>
-                    <input type="text" th:field="*{firstname}" class="form-control" id="firstname">
+                    <input type="text" th:field="*{firstname}" class="form-control" id="firstname" placeholder="Entrez le prénom">
                     <p th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" class="fieldError"></p>
                 </div>
                 <div class="mb-3">
                     <label for="lastname" class="form-label">Nom:</label>
-                    <input type="text" th:field="*{lastname}" class="form-control" id="lastname">
+                    <input type="text" th:field="*{lastname}" class="form-control" id="lastname" placeholder="Entrez le nom">
                     <p th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" class="fieldError"></p>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email:</label>
-                    <input type="email" th:field="*{email}" class="form-control" id="email">
+                    <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="Entrez l'email">
                     <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError"></p>
                 </div>
                 <div class="mb-3">
@@ -48,7 +44,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="langue" class="form-label">Langue:</label>
-                    <input type="text" th:field="*{langue}" class="form-control" id="langue">
+                    <input type="text" th:field="*{langue}" class="form-control" id="langue" placeholder="Entrez la langue">
                     <p th:if="${#fields.hasErrors('langue')}" th:errors="*{langue}" class="fieldError"></p>
                 </div>
 

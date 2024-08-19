@@ -1,5 +1,6 @@
 package be.iccbxl.pid.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,40 +122,71 @@ public class AdminController {
         return "admin/user/edit";
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @PutMapping("/users/{id}/edit")
-    public String updateUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult,
-                             @PathVariable("id") long id, Model model) {
-
-        if (bindingResult.hasErrors()) {
-            List<Role> roles = roleService.getAll(); // Récupérer les rôles en cas d'erreur
-            model.addAttribute("roles", roles);
-            return "/admin/user/edit";
-        }
-
+    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") long id) {
         User existing = userService.getUser(id);
-
+        
         if (existing == null) {
             return "redirect:/admin/users";
         }
 
-        user.setId(id);
-
-        // Supprimer les rôles existants et ajouter les nouveaux rôles
+        existing.setLogin(user.getLogin());
+        existing.setFirstname(user.getFirstname());
+        existing.setLastname(user.getLastname());
+        existing.setEmail(user.getEmail());
+        existing.setLangue(user.getLangue());
         existing.getRoles().clear();
-        user.getRoles().forEach(existing::addRole);
+        for (Role role : user.getRoles()) {
+            existing.addRole(role);
+        }
 
-        userService.updateUser(String.valueOf(user.getId()), user);
+        userService.updateUser(String.valueOf(id), existing);
 
         return "redirect:/admin/users";
     }
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     @DeleteMapping("/users/{id}")
     public String deleteUser(@PathVariable("id") Long id, Model model) {
         User existing = userService.getUser(id);
 
         if (existing != null) {
-            // Supprimer les rôles associés à l'utilisateur avant de le supprimer
-            existing.getRoles().forEach(existing::removeRole);
+            // Faire une copie de la liste des rôles
+            List<Role> rolesCopy = new ArrayList<>(existing.getRoles());
+
+            // Supprimer les rôles associés en utilisant la copie
+            for (Role role : rolesCopy) {
+                existing.removeRole(role);
+            }
+
+            // Sauvegarder les changements avant suppression
+            userService.updateUser(String.valueOf(existing.getId()), existing);
 
             // Supprimer l'utilisateur
             userService.deleteUserById(id);
@@ -162,6 +194,7 @@ public class AdminController {
 
         return "redirect:/admin/users";
     }
+
 
 
     //------------- SHOW -------------//

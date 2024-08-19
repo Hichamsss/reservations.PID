@@ -1,0 +1,70 @@
+        /* Formulaire de paiement */
+        .payment-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 50px auto;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .payment-container h1 {
+            font-size: 36px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .payment-container p {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .form-group label {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+        }
+
+        .btn-primary {
+            background-color: #28a745;
+            border-color: #28a745;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 10px;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: #218838;
+            border-color: #218838;
+        }
+
+        .payment-method {
+            margin-bottom: 20px;
+        }
+
+        .qr-code {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .qr-code img {
+            max-width: 150px;
+            margin-bottom: 10px;
+        }
+
+        .qr-code p {
+            font-size: 14px;
+            color: #333;
+        }

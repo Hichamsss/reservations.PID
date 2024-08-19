@@ -1,0 +1,53 @@
+.fieldError {
+    color: red;
+}
+
+label,
+input,
+button,
+p.fieldError {
+    color: white; /* Couleur des textes en blanc */
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.7); /* Couleur des placeholders en blanc avec opacité */
+}
+
+/* Ajoutez un fond sombre pour s'assurer que le texte blanc soit visible */
+body {
+    background-color: #343a40;
+}
+
+.form-control {
+    background-color: #495057;
+    border: 1px solid #ced4da;
+    color: white;
+}
+
+.form-control:focus {
+    background-color: #495057;
+    border-color: #80bdff;
+    color: white;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: white;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+h1.text-center {
+    color: white; /* Assurez-vous que le titre soit également en blanc */
+}
