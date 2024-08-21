@@ -15,7 +15,7 @@
 	        <form th:action="@{/artists/create}" th:object="${artist}" method="post">
 		        <div>
 		        	<label>Firstname:</label>
-		        	<input type="text" th:field="*{firstname}">
+		        	<input type="text" th:field="*{}">
 		<p th:if="${#fields.hasErrors('firstname')}"
                			th:errors="*{firstname}" th:errorclass="fieldError"></p>
 		        </div>
@@ -26,7 +26,7 @@
                			th:errors="*{lastname}" th:errorclass="fieldError"></p>
 		        </div>
 		        <div>
-		        	<button type="submit" th:text="Modifier">Modifier</button>
+		        	<button type="submit" th:text="Confirmer">Modifier</button>
 		        	<button type="reset" th:text="Réinitialiser">Réinitialiser</button>
 		        	<a th:href="@{/artists}">Annuler</a>
 		        </div>

@@ -1,56 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" layout:decorate="~{layouts/main}">
+
 <head>
     <title>Choix des places</title>
-    <style>
-        h1 {
-            text-align: center; /* Centre le titre principal */
-        }
-
-        .seat {
-            width: 30px;
-            height: 30px;
-            margin: 3px;
-            background-color: #ccc;
-            cursor: pointer;
-            display: inline-block;
-            text-align: center;
-            line-height: 30px;
-            border-radius: 5px;
-        }
-
-        .selected {
-            background-color: #28a745;
-            color: white;
-        }
-
-        .reserved {
-            background-color: #e74c3c;
-            color: white;
-            cursor: not-allowed;
-        }
-
-        .seat-row {
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .screen {
-            width: 80%;
-            height: 40px;
-            background-color: #000;
-            color: white;
-            text-align: center;
-            line-height: 40px;
-            margin: 20px auto;
-            border-radius: 5px;
-        }
-
-        .container {
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/choix.css}">
 </head>
+
 <body>
     <div class="container">
         <div layout:fragment="content">
@@ -114,10 +69,10 @@
                     </select>
                     <p>Veuillez noter qu'une vérification de votre statut d'étudiant ou de senior sera effectuée à l'accueil lors de votre arrivée. Merci de bien vouloir présenter une pièce justificative valide (carte d'étudiant, pièce d'identité, etc.) pour prouver votre éligibilité au tarif réduit.
 
-En cas d'impossibilité de fournir une preuve valable, vous serez tenu d'acheter un nouveau billet au tarif plein.
+					En cas d'impossibilité de fournir une preuve valable, vous serez tenu d'acheter un nouveau billet au tarif plein.
 
-Nous vous remercions de votre compréhension et coopération.</p>
-                </div>
+					Nous vous remercions de votre compréhension et coopération.</p>
+                	</div>
 
                 <!-- Bouton pour soumettre le formulaire -->
                 <button type="submit" class="btn btn-primary mt-3">Etape suivante</button>

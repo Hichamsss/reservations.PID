@@ -18,13 +18,13 @@
         <span th:text="${artist.id}">1</span>
       </div>
       <div>
-        <label>Firstname:</label>
+        <label>Prénom:</label>
         <input type="text" th:field="*{firstname}">
         <p th:if="${#fields.hasErrors('firstname')}"
            th:errors="*{firstname}" th:errorclass="fieldError"></p>
       </div>
       <div>
-        <label>Lastname:</label>
+        <label>Nom:</label>
         <input type="text" th:field="*{lastname}">
         <p th:if="${#fields.hasErrors('lastname')}"
            th:errors="*{lastname}" th:errorclass="fieldError"></p>
