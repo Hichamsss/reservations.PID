@@ -1,27 +1,22 @@
-<!DOCTYPE html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8">
-    <title>Header fragment</title>
-  </head>
-  <body>
-    <header class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="http://localhost:8080/home">Projet Réservations</a>
-        </div>
-        
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li th:classappend="${module == 'home' ? 'active' : ''}">
-              <a href="#" th:href="@{/}">Page d'accueil</a>
-            </li>
-            <li th:classappend="${module == 'artists' ? 'active' : ''}">
-              <a href="#" th:href="@{/artists}">Les artistes</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </header>
-  </body>
-</html>
+<header class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="header">
+  <div class="container">
+    <a class="navbar-brand" href="http://localhost:8080/home">Projet Réservations</a>
+    <link rel="stylesheet" href="/css/header.css">
+    
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#" th:href="@{/}">Page d'accueil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" th:href="@{/artists}">Les artistes</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="btn btn-danger" href="#" th:href="@{/logout}">Se déconnecter</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
