@@ -19,7 +19,7 @@
                 <!-- Sidebar Navigation -->
                 <ul class="sidebar-nav">
                     <li class="sidebar-header">
-                        Tools & Components
+                        Composants Dashboard
                     </li>
                     <li class="sidebar-item">
                         <a th:href="@{/admin}" class="sidebar-link">
@@ -29,47 +29,15 @@
                     <li class="sidebar-item">
                         <a th:href="@{/admin/users}" class="sidebar-link collapsed" data-bs-toggle="collapse"
                             data-bs-target="#pages" aria-expanded="false" aria-controls="pages">
-                            <i class="fa-solid fa-users"></i> Users
+                            <i class="fa-solid fa-users"></i> Utilisateurs
                         </a>
-                        <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Analytics</a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Ecommerce</a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Crypto</a>
-                            </li>
-                        </ul>
                     </li>
-                    <li class="sidebar-item">
-                        <a th:href="@{/admin/shows}" class="sidebar-link collapsed" data-bs-toggle="collapse"
-                            data-bs-target="#dashboard" aria-expanded="false" aria-controls="dashboard">
-                            <i class="fa-solid fa-glasses"></i> Shows
-                        </a>
-                        <ul id="dashboard" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">R</a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Dashboard Ecommerce</a>
-                            </li>
-                        </ul>
-                    </li>
+                    
                     <li class="sidebar-item">
                         <a th:href="@{/admin/shows}" class="sidebar-link collapsed" data-bs-toggle="collapse"
                             data-bs-target="#representations" aria-expanded="false" aria-controls="representations">
                             <i class="fa-solid fa-theater-masks"></i> Représentations
                         </a>
-                        <ul id="representations" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Calendrier</a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Organisateurs</a>
-                            </li>
-                        </ul>
                     </li>
                     <li class="sidebar-item">
                         <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">

@@ -13,14 +13,6 @@ body {
 
 
 
-
-
-/*header*/
-.navbar {
-    background: rgba(255, 255, 255, 0.3); /* Fond semi-transparent */
-}
-
-
 .imgShow{
 	 width: 100%; /* Définit la largeur de l'image à 100% de la largeur du conteneur */
     height: 400px; /* Permet de maintenir les proportions de l'image */

@@ -48,4 +48,8 @@ public class LoginController {
         return "redirect:/login";
     }
 
+    @GetMapping("/forgot-password")
+    public String forgotPasswordPage() {
+        return "login/forgot-password";
+    }
 }

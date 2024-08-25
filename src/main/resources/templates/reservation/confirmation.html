@@ -21,16 +21,23 @@
 
                     </div>
                     <div>
+                    <div th:if="${username != null}">
+                            <p><strong>Bonjour </strong> <span th:text="${username}"></span><strong>, heureux de vous voir</strong></p>
+                     </div>
+                     	<p><strong>Titre de la pièce :</strong> <span th:text="${representation.show.title}"></span></p>
                         <strong>En date du :</strong>
                         <span th:text="${#temporals.format(representation.when, 'd MMMM yyyy à HH:mm')}"></span>
-                        <p><strong>Titre de la pièce :</strong> <span th:text="${representation.show.title}"></span></p>
-
-                        <div th:if="${username != null}">
-                            <p><strong>Bonjour </strong> <span th:text="${username}"></span><strong>, heureux de vous voir</strong></p>
-                        </div>
                         
-                        <!-- Ajout du prix unitaire -->
-                        <p><strong>Prix unitaire :</strong> <span th:text="${representation.show.price} + ' €'"></span></p>
+
+                        
+                        <!-- 
+                        <p><strong>Prix unitaire :</strong> <span th:text="${representation.show.price} + ' €'"></span></p> -->
+                        <p>
+                    <strong>Prix unitaire:</strong> 
+                    <span th:text="${show.price} + ' € (Étudiant/Senior: '"></span>
+                    <span th:text="${#numbers.formatDecimal(show.price * 0.7, 1, 2)}"></span>
+                    <span> €)</span>
+                </p>
                         
                         <p><strong>Nombre de places:</strong> 
                             <select name="nbPlaces" id="nbPlaces" th:field="*{nbPlaces}">
