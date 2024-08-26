@@ -1,19 +1,14 @@
-FROM node:14
+# Utiliser une image de base Java
+FROM openjdk:17-jdk-alpine
 
-# Définit le répertoire de travail à /app
+# Créer un répertoire pour l'application
 WORKDIR /app
 
-# Copie le package.json et package-lock.json
-COPY package*.json ./
+# Copier le fichier JAR dans le conteneur
+COPY target/reservationsSpringBoot-0.0.1-SNAPSHOT.jar /app/reservations.jar
 
-# Installe les dépendances
-RUN npm install
+# Exposer le port 8080
+EXPOSE 8080
 
-# Copie tous les fichiers du projet dans le conteneur
-COPY . .
-
-# Expose le port sur lequel l'application va écouter
-EXPOSE 3000
-
-# Démarre l'application
-CMD ["npm", "start"]
+# Démarrer l'application
+ENTRYPOINT ["java", "-jar", "/app/reservations.jar"]
