@@ -19,4 +19,13 @@ public class EmailService {
         message.setText(text);
         emailSender.send(message);
     }
+
+    public void sendTestEmail() {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo("serifihicham@hotmail.fr"); // Remplacez par votre adresse e-mail pour recevoir l'e-mail de test
+        message.setSubject("Test Email");
+        message.setText("This is a test email to verify SMTP settings.");
+        emailSender.send(message);
+    }
+
 }
