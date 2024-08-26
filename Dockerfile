@@ -1,14 +1,22 @@
-# Utiliser une image de base Java
+# Étape 1 : Construire l'application
+FROM maven:3.8.6-openjdk-17 AS build
+WORKDIR /app
+
+# Copier le fichier pom.xml et télécharger les dépendances de Maven
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
+
+# Copier le reste du code source et compiler l'application
+COPY src ./src
+RUN mvn package -DskipTests
+
+# Étape 2 : Créer l'image finale
 FROM openjdk:17-jdk-alpine
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 
-# Ajouter un argument pour le nom du JAR
-ARG JAR_FILE=target/*.jar
-
-# Copier le JAR dans l'image Docker
-COPY ${JAR_FILE} app.jar
-
-# Exposer le port 8080 (ou celui sur lequel votre application écoute)
+# Exposer le port
 EXPOSE 8080
 
 # Commande pour exécuter l'application
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
