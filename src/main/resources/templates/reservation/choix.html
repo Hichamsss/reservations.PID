@@ -35,7 +35,7 @@
                 <h2><div class="screen">La scène</div></h2>
                 <div id="seats-container">
                     <!-- Générer 10 rangées avec 10 sièges chacune -->
-                    <div th:each="row : ${#numbers.sequence(1, 10)}" class="seat-row">
+                    <div th:each="row : ${#numbers.sequence(1, 9)}" class="seat-row">
                         <div th:each="col : ${#numbers.sequence(1, 10)}"
                              class="seat"
                              th:classappend="${(row == 3 && col == 1) || 
@@ -49,7 +49,7 @@
                               (row == 8 && col == 8) ||
                               (row == 6 && col == 3) ||
                               (row == 6 && col == 4) ||
-                              (row == 10 && col == 5) ? ' reserved' : ''}"
+                              (row == 9 && col == 5) ? ' reserved' : ''}"
                              th:data-seat="${'R' + row + 'C' + col}">
                             <span th:text="${'R' + row + 'C' + col}"></span>
                         </div>
@@ -65,7 +65,7 @@
                 <div class="form-group mt-3">
                     <p><strong>Parmi les places choisies, combien sont pour les seniors ou étudiants?</strong></p>
                     <select name="nbReducedPlaces" id="nbReducedPlaces">
-                        <option th:each="i : ${#numbers.sequence(0, 10)}" th:value="${i}" th:text="${i}">0</option>
+                        <option th:each="i : ${#numbers.sequence(0, 20)}" th:value="${i}" th:text="${i}">0</option>
                     </select>
                     <p>Veuillez noter qu'une vérification de votre statut d'étudiant ou de senior sera effectuée à l'accueil lors de votre arrivée. Merci de bien vouloir présenter une pièce justificative valide (carte d'étudiant, pièce d'identité, etc.) pour prouver votre éligibilité au tarif réduit.
 
