@@ -11,7 +11,7 @@
         <div class="container">
             <div class="row mt-5">
                 <div class="col-md-6 offset-md-3 text-center mb-5" style="border: 5px solid black;">
-                    <h2 class="text-center m-1">Choix du nombre de place</h2>
+                    <h2 class="text-center m-1">Choix du nombre de places</h2>
 
                     <div th:if="${representation != null}" class="text-center">
 
@@ -41,7 +41,7 @@
                         
                         <p><strong>Nombre de places:</strong> 
                             <select name="nbPlaces" id="nbPlaces" th:field="*{nbPlaces}">
-                                <option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}"
+                                <option th:each="i : ${#numbers.sequence(1, 20)}" th:value="${i}"
                                         th:text="${i}" th:selected="${i == nbPlaces}">1</option>
                             </select>
                         </p>

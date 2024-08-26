@@ -42,12 +42,27 @@ public class HelloController {
                     font-size: 1.2rem;
                     line-height: 1.5;
                 }
+                .btn-back {
+                    margin-top: 20px;
+                    padding: 10px 20px;
+                    background-color: #17a2b8;
+                    color: #fff;
+                    border: none;
+                    border-radius: 5px;
+                    font-size: 1rem;
+                    cursor: pointer;
+                    text-decoration: none;
+                }
+                .btn-back:hover {
+                    background-color: #138496;
+                }
             </style>
         </head>
         <body>
             <div class="container">
                 <h1>Greetings from Spring Boot!</h1>
                 <p>Bienvenue sur l'application Spring Boot du moment</p>
+                <button class="btn-back" onclick="history.back()">Retour</button>
             </div>
         </body>
         </html>

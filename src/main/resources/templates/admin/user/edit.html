@@ -42,11 +42,14 @@
                     </div>
                     <p th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}" class="fieldError"></p>
                 </div>
-                <div class="mb-3">
-                    <label for="langue" class="form-label">Langue:</label>
-                    <input type="text" th:field="*{langue}" class="form-control" id="langue" placeholder="Entrez la langue">
-                    <p th:if="${#fields.hasErrors('langue')}" th:errors="*{langue}" class="fieldError"></p>
-                </div>
+                <div class="form-group mb-3">
+									<select class="form-control" th:field="*{langue}">
+										<option value="">Veuillez sélectionner la langue</option>
+										<option th:value="FR">FR</option>
+										<option th:value="NL">NL</option>
+										<option th:value="EN">EN</option>
+									</select>
+								</div>
 
                 <div class="mb-3 text-center">
                     <button type="submit" th:text="Modifier" class="btn btn-primary">Modifier</button>

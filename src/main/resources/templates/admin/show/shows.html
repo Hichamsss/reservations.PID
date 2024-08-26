@@ -8,9 +8,11 @@
 <body>
 	<div layout:fragment="content">
 
-		<div class="text-end m-3 ">
-			<a th:href="@{/admin/add-show}" class="btn btn-success">Add</a>
-		</div>
+	
+		<div class="text-end m-3">
+            <a th:href="@{/admin/add-show}" class="btn btn-success">Add <i class="bi bi-person-fill-add fs-3"></i></a>
+        </div>
+		
 		<div class="container text-light">
 			<h1 th:text="${title}" class="mb-3"></h1>
 

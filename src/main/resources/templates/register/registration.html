@@ -4,10 +4,12 @@
 
 <head>
 	<title>Inscription</title>
-	<style> /* Masquer le header et le footer */
-header, footer {
+	<style> 
+        /* Masquer le header et le footer */
+        header, footer {
             display: none !important;
-        }</style>
+        }
+    </style>
 	
 </head>
 
@@ -18,7 +20,7 @@ header, footer {
 			<div class="row">
 				<div class="col-md-3 register-left">
 					<img src="/images/billet.jpg" alt="" />
-					<h3>Bienvenue</h3>
+					<h2><i>Créez un compte pour poursuivre votre navigation sur notre site</i></h2>
 					<br/>
 				</div>
 				<div class="col-md-9 register-right">
@@ -44,18 +46,18 @@ header, footer {
 							<form class="row register-form" th:object="${user}" th:action="@{/register}" method="post">
 								<div class="col-md-6">
 									<div class="form-group mb-4">
-										<input type="text" class="form-control" placeholder="Login *" id="login" th:field="*{login}">
+										<input type="text" class="form-control" placeholder="Login *" id="login" th:field="*{login}" autocomplete="off">
 										<!-- Pour afficher les erreurs spécifiques au champ login -->
 										<p th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="error-text text-danger"></p>
 									</div>
 
 									<div class="form-group mb-4">
-										<input type="password" class="form-control" placeholder="Password *" id="password" th:field="*{password}">
+										<input type="password" class="form-control" placeholder="Password *" id="password" th:field="*{password}" autocomplete="new-password">
 										<!-- Pour afficher les erreurs spécifiques au champ password -->
 										<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-text text-danger"></p>
 									</div>
 									<div class="form-group mb-4">
-										<input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password *"
+										<input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password *" autocomplete="new-password"
 											   onkeyup="validatePassword()">
 										<p id="passwordHelpBlock" class="error-text text-danger"></p>
 									</div>
@@ -81,12 +83,20 @@ header, footer {
 										<option th:value="EN">EN</option>
 									</select>
 								</div>
-								<button type="submit" class="text-center btnRegister">Register</button>
+								<button type="submit" class="text-center btnRegister" style="background-color: navy; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">S'enregistrer</button>
+
+								
 							</form>
 
 							<div id="confirmationMessage" style="display: none;">
 								<p class="text-success">Votre inscription a été effectuée avec succès !</p>
 							</div>
+							
+							<!-- Ajout du bouton retour -->
+  							<div style="margin-top: 20px;">
+    							<a href="http://localhost:8080/login" class="btn btn-secondary">Retour à la page de connexion</a>
+  							</div>
+							
 						</div>
 
 					</div>
