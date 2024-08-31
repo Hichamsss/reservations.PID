@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" lang="fr"
-    layout:decorate="~{layouts/main}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" lang="fr" layout:decorate="~{layouts/main}">
 
 <head>
     <title>Accueil - Réservation Théâtre</title>
@@ -30,14 +29,11 @@
             </div>
 
             <!-- Carousel -->
-            <div id="carouselExampleIndicators" class="carousel slide mb-5" data-bs-ride="carousel">
+            <div id="carouselExampleIndicators" class="carousel slide mb-5" data-bs-ride="carousel" data-bs-interval="2000">
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-                        class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                        aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                        aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -62,13 +58,11 @@
                         </div>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                    data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Précédent</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                    data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Suivant</span>
                 </button>
@@ -90,8 +84,7 @@
                             <p class="card-text">Une intrigue passionnante qui vous tiendra en haleine.</p>
                             <a href="#" class="btn btn-primary-custom" onclick="toggleInfo(event, this)">En savoir plus</a>
                             <div class="info-bubble">
-                                <p>Histoire d'amour interdite entre deux jeunes amants issus de familles rivales à Vérone.
-                                    Leur passion dévorante les pousse à défier les normes, mais leur destin tragique est scellé par un enchaînement de malentendus et de conflits.</p>
+                                <p>Histoire d'amour interdite entre deux jeunes amants issus de familles rivales à Vérone. Leur passion dévorante les pousse à défier les normes, mais leur destin tragique est scellé par un enchaînement de malentendus et de conflits.</p>
                             </div>
                         </div>
                     </div>
@@ -105,8 +98,7 @@
                             <p class="card-text">Un spectacle époustouflant avec des performances inoubliables.</p>
                             <a href="#" class="btn btn-primary-custom" onclick="toggleInfo(event, this)">En savoir plus</a>
                             <div class="info-bubble">
-                                <p>Les aventures fantastiques d'Alice, une jeune fille curieuse, 
-                                    qui tombe dans un terrier de lapin et découvre un monde étrange peuplé de personnages excentriques et merveilleux.</p>
+                                <p>Les aventures fantastiques d'Alice, une jeune fille curieuse, qui tombe dans un terrier de lapin et découvre un monde étrange peuplé de personnages excentriques et merveilleux.</p>
                             </div>
                         </div>
                     </div>
@@ -120,9 +112,7 @@
                             <p class="card-text">Plongez dans un univers théâtral unique en son genre.</p>
                             <a href="#" class="btn btn-primary-custom" onclick="toggleInfo(event, this)">En savoir plus</a>
                             <div class="info-bubble">
-                                <p>L'histoire de Cyrano, un poète et épéiste au grand cœur, 
-                                    connu pour son nez proéminent, qui aide secrètement le beau Christian à courtiser la femme qu'il aime,
-                                    Roxane, malgré ses propres sentiments pour elle.</p>
+                                <p>L'histoire de Cyrano, un poète et épéiste au grand cœur, connu pour son nez proéminent, qui aide secrètement le beau Christian à courtiser la femme qu'il aime, Roxane, malgré ses propres sentiments pour elle.</p>
                             </div>
                         </div>
                     </div>
@@ -140,8 +130,7 @@
                 <div class="col-md-4 col-sm-6 mb-4" th:each="show : ${shows}">
                     <a th:href="@{'/shows/' + ${show.id}}" class="text-center">
                         <div class="card h-100">
-                            <img th:src="@{'/images/' + ${show.posterUrl}}" class="card-img-top mx-auto d-block"
-                                style="width: 100%; height: 300px; object-fit: cover;" alt="Affiche">
+                            <img th:src="@{'/images/' + ${show.posterUrl}}" class="card-img-top mx-auto d-block" style="width: 100%; height: 300px; object-fit: cover;" alt="Affiche">
                             <div class="card-body">
                                 <h5 class="card-title" th:text="${show.title}">Titre de la pièce</h5>
                                 <p class="card-text" th:text="${show.description}">Description courte de la pièce.</p>
